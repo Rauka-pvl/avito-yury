@@ -28,8 +28,13 @@ foreach ($_FILES['images']['name'] as $key => $image) {
     }
     $uploadPath = $uploadDirectory . $name;
 
+    // Проверка наличия файла и удаление старого файла, если он существует
+    if (file_exists($uploadPath)) {
+        unlink($uploadPath);
+    }
+
     if (move_uploaded_file($_FILES['images']['tmp_name'][$key], $uploadPath)) {
-        $sql = 'INSERT INTO images (brand, articul) VALUES (:brand, :articul)';
+        $sql = 'INSERT INTO images (brand, articul) VALUES (:brand, :articul) ON DUPLICATE KEY UPDATE articul = :articul';
         $stmt = $pdo->prepare($sql);
 
         // Привязка параметров и выполнение запроса
@@ -46,3 +51,4 @@ foreach ($_FILES['images']['name'] as $key => $image) {
         echo 'Не удалось загрузить файл.';
     }
 }
+?>
