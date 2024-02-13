@@ -83,7 +83,6 @@ foreach ($result as $row) {
                         echo "<th>" . $d['brand'] . "</th>";
                         echo "<th>" . $d['articul'] . "</th>";
                         echo "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal$key'>Просмотр</button></td>";
-                        echo "<td><button type='button' class='btn btn-warning' data-toggle='modal' data-target='#myModal2-$key'>Редактировать</button></td>";
                         echo "<td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#myModal3-$key'>Удалить</button></td>";
                         echo "</tr>";
                         echo "
@@ -109,32 +108,32 @@ foreach ($result as $row) {
                                 </div>
                             </div>
                         </div>";
-                        echo "
-                        <div class='modal' id='myModal2-$key'>
-                            <div class='modal-dialog'>
-                                <div class='modal-content'>
-                                    <form method='post' action='db/edit.php'>
-                                        <!-- Заголовок модальной формы -->
-                                        <div class='modal-header'>
-                                            <h4 class='modal-title'>Редактировать</h4>
-                                        </div>
+                        // echo "
+                        // <div class='modal' id='myModal2-$key'>
+                        //     <div class='modal-dialog'>
+                        //         <div class='modal-content'>
+                        //             <form method='post' action='db/edit.php'>
+                        //                 <!-- Заголовок модальной формы -->
+                        //                 <div class='modal-header'>
+                        //                     <h4 class='modal-title'>Редактировать</h4>
+                        //                 </div>
                     
-                                        <!-- Тело модальной формы -->
-                                        <div class='modal-body'>
-                                            <input hidden value='" . $d['brand'] . "' name='brand'>
-                                            <input hidden value='" . $d['articul'] . "' name='articul'>
-                                            <input type='text' class='form-control' name='new_articul' required value='" . $d['articul'] . "' placeholder='Артикул'>
-                                        </div>
+                        //                 <!-- Тело модальной формы -->
+                        //                 <div class='modal-body'>
+                        //                     <input hidden value='" . $d['brand'] . "' name='brand'>
+                        //                     <input hidden value='" . $d['articul'] . "' name='articul'>
+                        //                     <input type='text' class='form-control' name='new_articul' required value='" . $d['articul'] . "' placeholder='Артикул'>
+                        //                 </div>
                     
-                                        <!-- Подвал модальной формы -->
-                                        <div class='modal-footer'>
-                                            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
-                                            <button type='sumbit' class='btn btn-success'>Сохранить изменения</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>";
+                        //                 <!-- Подвал модальной формы -->
+                        //                 <div class='modal-footer'>
+                        //                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
+                        //                     <button type='sumbit' class='btn btn-success'>Сохранить изменения</button>
+                        //                 </div>
+                        //             </form>
+                        //         </div>
+                        //     </div>
+                        // </div>";
                         echo "
                         <div class='modal' id='myModal3-$key'>
                             <div class='modal-dialog'>
