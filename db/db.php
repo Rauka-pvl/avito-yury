@@ -8,9 +8,9 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
 }
 
 $host = 'localhost';
-$db = 'avita_yura';
-$user = 'root';
-$pass = 'root';
+$db = 'avito';
+$user = 'uploader';
+$pass = 'uploader';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
