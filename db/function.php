@@ -31,24 +31,27 @@ foreach ($_FILES['images']['name'] as $key => $image) {
     // Проверка наличия файла и удаление старого файла, если он существует
     if (file_exists($uploadPath)) {
         unlink($uploadPath);
-    }
-
-    if (move_uploaded_file($_FILES['images']['tmp_name'][$key], $uploadPath)) {
-        $sql = 'INSERT INTO images (brand, articul) VALUES (:brand, :articul) ON DUPLICATE KEY UPDATE articul = :articul';
-        $stmt = $pdo->prepare($sql);
-
-        // Привязка параметров и выполнение запроса
-        $stmt->bindParam(':brand', $_POST['brand'], PDO::PARAM_STR);
-        $stmt->bindParam(':articul', $name, PDO::PARAM_STR);
-
-        // Выполнение запроса
-        if ($stmt->execute()) {
+        if (move_uploaded_file($_FILES['images']['tmp_name'][$key], $uploadPath)) {
             header('Location: ../create/true.php');
-        } else {
-            echo 'Ошибка при добавлении данных в таблицу.';
         }
     } else {
-        echo 'Не удалось загрузить файл.';
+        if (move_uploaded_file($_FILES['images']['tmp_name'][$key], $uploadPath)) {
+            $sql = 'INSERT INTO images (brand, articul) VALUES (:brand, :articul) ON DUPLICATE KEY UPDATE articul = :articul';
+            $stmt = $pdo->prepare($sql);
+
+            // Привязка параметров и выполнение запроса
+            $stmt->bindParam(':brand', $_POST['brand'], PDO::PARAM_STR);
+            $stmt->bindParam(':articul', $name, PDO::PARAM_STR);
+
+            // Выполнение запроса
+            if ($stmt->execute()) {
+                header('Location: ../create/true.php');
+            } else {
+                echo 'Ошибка при добавлении данных в таблицу.';
+            }
+        } else {
+            echo 'Не удалось загрузить файл.';
+        }
     }
 }
 ?>

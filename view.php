@@ -7,7 +7,7 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
 }
 
 require_once 'db/db.php';
-$sql = "SELECT * FROM images";
+$sql = "SELECT * FROM images ORDER BY brand";
 
 $stmt = $pdo->prepare($sql);
 
