@@ -18,7 +18,7 @@ $result = $stmt->fetchAll();
 
 $data = [];
 foreach ($result as $row) {
-    $url = "https://233204.fornex.cloud/uploads/" . $row['brand'] . "/" . $row['articul'];
+    $url = "http://31.172.69.102/uploads/" . $row['brand'] . "/" . $row['articul'];
     array_push($data, ["url" => $url]);
 }
 echo json_encode($data);
