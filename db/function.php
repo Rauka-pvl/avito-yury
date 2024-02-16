@@ -12,7 +12,7 @@ require_once 'db.php';
 
 $i = 0;
 
-$uploadDirectory = "../uploads/" . strtolower($_POST['brand']) . "/";
+$uploadDirectory = "../uploads/" . trim(strtolower($_POST['brand']), " ") . "/";
 foreach ($_FILES['images']['name'] as $key => $image) {
     if (!file_exists($uploadDirectory)) {
         mkdir($uploadDirectory, 0777, true);
@@ -22,7 +22,7 @@ foreach ($_FILES['images']['name'] as $key => $image) {
     $path = pathinfo($_FILES['images']['name'][$key])['extension'];
     if ($key != 0) {
         $i++;
-        $name = strtolower($_POST['articul']) . "_" . $i . "." . $path;
+        $name = trim(strtolower($_POST['articul']), " ") . "_" . $i . "." . $path;
     } else {
         $name = strtolower($_POST['articul']) . "." . $path;
     }
