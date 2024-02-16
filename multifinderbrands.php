@@ -33,7 +33,7 @@ if (!empty($result)) {
         $url = "https://233204.fornex.cloud/" . strtolower($row['brand']) . "/" . strtolower($row['articul']);
 
         // Проверяем, существует ли изображение по указанной ссылке
-        $imageInfo = @getimagesize($url);
+        $imageInfo = getimagesize($url);
         if ($imageInfo !== false) {
             array_push($data, ["url" => $url]);
         }
