@@ -31,10 +31,22 @@ $data = [];
 if (!empty($result)) {
     foreach ($result as $row) {
         $url = "https://233204.fornex.cloud/" . $row['brand'] . "/" . $row['articul'];
-        array_push($data, ["url" => $url]);
+
+        // Проверяем, существует ли изображение по указанной ссылке
+        $imageInfo = @getimagesize($url);
+        if ($imageInfo !== false) {
+            array_push($data, ["url" => $url]);
+        }
     }
-    header("Content-Type: application/json");
-    echo json_encode($data);
+
+    if (!empty($data)) {
+        header("Content-Type: application/json");
+        echo json_encode($data);
+    } else {
+        // Если результатов нет, возвращаем 404 Not Found
+        header("HTTP/1.1 404 Not Found");
+        echo json_encode(["error" => "Изображение не найдено"]);
+    }
 } else {
     // Если результатов нет, возвращаем 404 Not Found
     header("HTTP/1.1 404 Not Found");
