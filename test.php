@@ -21,7 +21,7 @@
     $.ajax({
         type: 'POST',
         url: 'https://233204.fornex.cloud/multifinderbrands.php',
-        contentType: 'application/json',
+        // contentType: 'application/json',
         data: JSON.stringify(dataToSend),
         success: function (response) {
             console.log('Успешный ответ: ', response);
