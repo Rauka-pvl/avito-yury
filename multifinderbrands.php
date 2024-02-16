@@ -50,5 +50,5 @@ if (!empty($result)) {
 } else {
     // Если результатов нет, возвращаем 404 Not Found
     header("HTTP/1.1 404 Not Found");
-    echo json_encode(["error" => "Изображение не найдено"]);
+    echo json_encode(["error" => "Изображение не найдено!"]);
 }
