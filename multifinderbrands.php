@@ -17,7 +17,6 @@ $json = $json[0] ?? $json;
 
 $sql = "SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT('%', :articul, '%')";
 
-
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':brand', $json->brand, PDO::PARAM_STR);
 $stmt->bindParam(':articul', $json->article, PDO::PARAM_STR);
@@ -26,11 +25,18 @@ $stmt->bindParam(':articul', $json->article, PDO::PARAM_STR);
 $stmt->execute();
 $result = $stmt->fetchAll();
 
-
 $data = [];
-foreach ($result as $row) {
-    $url = "https://233204.fornex.cloud/" . $row['brand'] . "/" . $row['articul'];
-    array_push($data, ["url" => $url]);
+
+// Проверяем, есть ли результаты
+if (!empty($result)) {
+    foreach ($result as $row) {
+        $url = "https://233204.fornex.cloud/" . $row['brand'] . "/" . $row['articul'];
+        array_push($data, ["url" => $url]);
+    }
+    header("Content-Type: application/json");
+    echo json_encode($data);
+} else {
+    // Если результатов нет, возвращаем 404 Not Found
+    header("HTTP/1.1 404 Not Found");
+    echo json_encode(["error" => "Изображение не найдено"]);
 }
-header("Content-Type: application/json");
-echo json_encode($data);

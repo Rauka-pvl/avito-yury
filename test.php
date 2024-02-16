@@ -12,10 +12,10 @@
 </head>
 <script>
     // JSON-объект для отправки
-    var dataToSend = {
+    var dataToSend = [{
         brand: "<?= $_GET['brand'] ?>",
         article: "<?= $_GET['article'] ?>"
-    };
+    }];
 
     // Отправка POST-запроса с использованием jQuery
     $.ajax({
