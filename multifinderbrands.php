@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 $json = file_get_contents('php://input');
 $json = json_decode($json);
 
-var_dump($json);
+var_dump($json[0]);
 
 // $sql = "SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT('%', :articul, '%')";
 
