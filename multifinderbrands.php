@@ -37,8 +37,9 @@ if (!empty($result)) {
         if ($imageInfo !== false) {
             array_push($data, ["url" => $url]);
         }
+        var_dump(getimagesize($url));
     }
-
+    var_dump($data);
     if (!empty($data)) {
         header("Content-Type: application/json");
         echo json_encode($data);
