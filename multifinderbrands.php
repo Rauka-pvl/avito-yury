@@ -30,7 +30,7 @@ $data = [];
 // Проверяем, есть ли результаты
 if (!empty($result)) {
     foreach ($result as $row) {
-        $url = "https://233204.fornex.cloud/" . strtolower($row['brand']) . "/" . strtolower($row['articul']);
+        $url = "https://233204.fornex.cloud/uploads/" . strtolower($row['brand']) . "/" . strtolower($row['articul']);
 
         // Проверяем, существует ли изображение по указанной ссылке
         $imageInfo = getimagesize($url);
