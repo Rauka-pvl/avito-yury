@@ -13,8 +13,8 @@
 <script>
     // JSON-объект для отправки
     var dataToSend = {
-        brand: 'FOOD',
-        article: 'N'
+        brand: <?= $_GET['brand'] ?>,
+        article: <?= $_GET['article'] ?>
     };
 
     // Отправка POST-запроса с использованием jQuery
