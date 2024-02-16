@@ -1,12 +1,4 @@
 <?php
-session_start();
-
-// Проверяем, авторизован ли пользователь
-if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
-    header('Location: ../index.php');
-    exit;
-}
-
 $host = 'localhost';
 $db = 'avito';
 $user = 'uploader';

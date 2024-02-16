@@ -13,6 +13,7 @@ require_once 'db.php';
 $i = 0;
 
 $uploadDirectory = "../uploads/" . trim(strtolower($_POST['brand']), " ") . "/";
+$brand = trim(strtolower($_POST['brand']), " ");
 foreach ($_FILES['images']['name'] as $key => $image) {
     if (!file_exists($uploadDirectory)) {
         mkdir($uploadDirectory, 0777, true);
@@ -24,7 +25,7 @@ foreach ($_FILES['images']['name'] as $key => $image) {
         $i++;
         $name = trim(strtolower($_POST['articul']), " ") . "_" . $i . "." . $path;
     } else {
-        $name = strtolower($_POST['articul']) . "." . $path;
+        $name = trim(strtolower($_POST['articul'])) . "." . $path;
     }
     $uploadPath = $uploadDirectory . $name;
 
@@ -40,7 +41,7 @@ foreach ($_FILES['images']['name'] as $key => $image) {
             $stmt = $pdo->prepare($sql);
 
             // Привязка параметров и выполнение запроса
-            $stmt->bindParam(':brand', $_POST['brand'], PDO::PARAM_STR);
+            $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
             $stmt->bindParam(':articul', $name, PDO::PARAM_STR);
 
             // Выполнение запроса
