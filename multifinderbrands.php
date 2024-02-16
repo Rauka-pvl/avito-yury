@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-require_once 'db/db.php';
+// require_once 'db/db.php';
 
 $json = file_get_contents('php://input');
 $json = json_decode($json);
