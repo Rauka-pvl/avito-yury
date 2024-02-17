@@ -15,7 +15,7 @@ $json = json_decode($json);
 
 $json = $json[0] ?? $json;
 
-$sql = "SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT('%', :articul, '%')";
+$sql = "SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT(:articul, '%')";
 
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':brand', $json->brand, PDO::PARAM_STR);
