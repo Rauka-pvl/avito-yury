@@ -36,10 +36,11 @@ if (!empty($result)) {
         $imageInfo = getimagesize($url);
         if ($imageInfo !== false) {
             array_push($data, ["url" => $url]);
-        } else {
-            var_dump($imageInfo !== false);
-            var_dump($url);
         }
+        // else {
+        //     var_dump($imageInfo !== false);
+        //     var_dump($url);
+        // }
     }
 
     if (!empty($data)) {
