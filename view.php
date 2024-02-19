@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
 
 if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
@@ -7,9 +9,20 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
 }
 
 require_once 'db/db.php';
-$sql = "SELECT * FROM images ORDER BY brand";
 
-$stmt = $pdo->prepare($sql);
+$sort = $_GET['sort'] ?? 'ASC';
+$search = $_GET['search'] ?? null;
+
+
+if ($search) {
+    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') ORDER BY brand $sort";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':search', $search, PDO::PARAM_STR);
+
+} else {
+    $sql = "SELECT * FROM images ORDER BY brand $sort";
+    $stmt = $pdo->prepare($sql);
+}
 
 $stmt->execute();
 $result = $stmt->fetchAll();
@@ -63,13 +76,24 @@ foreach ($result as $row) {
     </style>
     <div class="container">
         <div class="center">
-            <div style="margin: 5px auto;" class="text-center">
+            <div style="margin: 5px auto;">
                 <a class="btn btn-primary" href="home.php">Назад</a>
             </div>
-            <table>
+            <form action="">
+                <div style="width: 400px; margin: 1em auto;" class="text-center">
+                    <input type="text" id="searchInput" placeholder="Поиск по бренду" name="search"
+                        value="<?= $search ?>" class="form-control" style="margin: 0 0 1em 0;">
+                    <select name="sort" class="form-control" style="margin: 0 0 1em 0;">
+                        <option value="ASC" selected>По возрастанию</option>
+                        <option value="DESC">По убыванию</option>
+                    </select>
+                    <button type="sumbit" class="btn btn-primary">Поиск</button>
+                </div>
+            </form>
+            <table id="myTable">
                 <thead>
                     <tr>
-                        <th>Бранд</th>
+                        <th onclick="sortTable(0)">Бранд</th>
                         <th>Артикул</th>
                         <th>Просмотр</th>
                         <!-- <th>Редактировать</th> -->
@@ -168,7 +192,56 @@ foreach ($result as $row) {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // function sortTable(columnIndex) {
+        //     var table, rows, switching, i, x, y, shouldSwitch;
+        //     table = document.getElementById("myTable");
+        //     switching = true;
 
+        //     while (switching) {
+        //         switching = false;
+        //         rows = table.rows;
+
+        //         for (i = 1; i < rows.length - 1; i++) {
+        //             shouldSwitch = false;
+        //             x = rows[i].getElementsByTagName("td")[columnIndex];
+        //             y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+
+        //             if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        //                 shouldSwitch = true;
+        //                 break;
+        //             }
+        //         }
+
+        //         if (shouldSwitch) {
+        //             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        //             switching = true;
+        //         }
+        //     }
+        // }
+
+        // function searchTable() {
+        //     var input, filter, table, tr, td, i, txtValue;
+        //     input = document.getElementById("searchInput");
+        //     filter = input.value.toUpperCase();
+        //     table = document.getElementById("myTable");
+        //     tr = table.getElementsByTagName("tr");
+
+        //     for (i = 0; i < tr.length; i++) {
+        //         td = tr[i].getElementsByTagName("td")[0]; // Поиск по второй колонке
+
+        //         if (td) {
+        //             txtValue = 'HP' || td.innerText;
+
+        //             if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        //                 tr[i].style.display = "";
+        //             } else {
+        //                 tr[i].style.display = "none";
+        //             }
+        //         }
+        //     }
+        // }
+    </script>
 </body>
 
 </html>
