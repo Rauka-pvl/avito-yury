@@ -12,10 +12,21 @@ require_once 'db/db.php';
 
 $sort = $_GET['sort'] ?? 'ASC';
 $search = $_GET['search'] ?? null;
+$searchA = $_GET['searchA'] ?? null;
 
 
-if ($search) {
-    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') ORDER BY brand $sort";
+if ($search && $searchA) {
+    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', $search ,'%') AND articul LIKE CONCAT('%', $searchA ,'%') ORDER BY brand $sort";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':search', $search, PDO::PARAM_STR);
+
+} else if ($search) {
+    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', $search ,'%') ORDER BY brand $sort";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':search', $search, PDO::PARAM_STR);
+
+} else if ($searchA) {
+    $sql = "SELECT * FROM images WHERE articul LIKE CONCAT('%', $searchA ,'%') ORDER BY brand $sort";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':search', $search, PDO::PARAM_STR);
 
@@ -80,20 +91,32 @@ foreach ($result as $row) {
                 <a class="btn btn-primary" href="home.php">Назад</a>
             </div>
             <form action="">
-                <div style="width: 400px; margin: 1em auto;" class="text-center">
-                    <input type="text" id="searchInput" placeholder="Поиск по бренду" name="search"
-                        value="<?= $search ?>" class="form-control" style="margin: 0 0 1em 0;">
-                    <select name="sort" class="form-control" style="margin: 0 0 1em 0;">
-                        <option value="ASC" selected>По возрастанию</option>
-                        <option value="DESC">По убыванию</option>
-                    </select>
-                    <button type="sumbit" class="btn btn-primary">Поиск</button>
+                <div style="width: 800px; margin: 1em auto; display: flex; justify-content: space-evenly; align-items: center;"
+                    class="text-center">
+                    <div style="margin: 0 0.5em;">
+                        <label for="search">Поиск по Бренду</label>
+                        <input type="text" id="search" placeholder="Поиск по Бренду" name="search"
+                            value="<?= $search ?>" class="form-control">
+                    </div>
+                    <div style="margin: 0 0.5em;">
+                        <label for="searchA">Поиск по Артиклу</label>
+                        <input type="text" id="searchA" placeholder="Поиск по Артиклу" name="searchA"
+                            value="<?= $searchA ?>" class="form-control">
+                    </div>
+                    <div style=" margin: 0 0.5em;">
+                        <label for="sort">Сортировка по Бренду</label>
+                        <select name="sort" class="form-control" id="sort">
+                            <option value="ASC" selected>По возрастанию</option>
+                            <option value="DESC">По убыванию</option>
+                        </select>
+                    </div>
+                    <button type="sumbit" class="btn btn-primary" style="height: 3.5em;">Поиск</button>
                 </div>
             </form>
             <table id="myTable">
                 <thead>
                     <tr>
-                        <th onclick="sortTable(0)">Бранд</th>
+                        <th>Бранд</th>
                         <th>Артикул</th>
                         <th>Просмотр</th>
                         <!-- <th>Редактировать</th> -->
