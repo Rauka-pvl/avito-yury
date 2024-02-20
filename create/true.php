@@ -9,7 +9,7 @@
     <script>
         setTimeout(function () {
             window.location = "../home.php";
-        }, 2000);
+        }, 1000);
     </script>
 </head>
 
