@@ -113,9 +113,14 @@ foreach ($result as $row) {
                     <button type="sumbit" class="btn btn-primary" style="height: 3.5em;">Поиск</button>
                 </div>
             </form>
+            <div class="text-center" id="delete_selected" style="display: none;">
+                <button onclick="delete_selected()" class="btn btn-danger" style="margin: 0 0 1em 0;">Удалить
+                    выбранные</button>
+            </div>
             <table id="myTable">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Бранд</th>
                         <th>Артикул</th>
                         <th>Просмотр</th>
@@ -127,6 +132,7 @@ foreach ($result as $row) {
                     <?php
                     foreach ($data as $key => $d) {
                         echo "<tr>";
+                        echo "<td><input type='checkbox' id='check' value='" . $d['id'] . "' class='selectRow'></td>";
                         echo "<th>" . $d['brand'] . "</th>";
                         echo "<th>" . $d['articul'] . "</th>";
                         echo "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal$key'>Просмотр</button></td>";
@@ -216,6 +222,48 @@ foreach ($result as $row) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
     <script>
+        function delete_selected() {
+            var checkBox = $('.selectRow:checked');
+            var array = new Array();
+
+            for (var i = 0; i < checkBox.length; i++) {
+                array.push(checkBox[i].value);
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: 'db/deleteS.php',
+                data: { ids: array },
+                success: function (response) {
+                    if (response == '[]') {
+                        window.location = "bool/delete/trueDelete.php";
+                    } else {
+                        response = JSON.parse(response);
+                        var text = "Файлы: \n";
+                        for (var i = 0; i < response.length; i++) {
+                            text = text + response[i] + "\n";
+                        }
+                        text = text + "\n Не получилось удалить!";
+                        alert(text);
+                    }
+                },
+                error: function (error) {
+                    console.error('Ошибка: ', error);
+                }
+            });
+        }
+
+        $(document).on('change', '.selectRow', function () {
+            var selectedRows = $('.selectRow:checked').length;
+            var btn_d = $('#delete_selected');
+
+            if (selectedRows > 0) {
+                btn_d.css('display', 'block');
+            } else {
+                btn_d.css('display', 'none');
+            }
+        });
+
         // function sortTable(columnIndex) {
         //     var table, rows, switching, i, x, y, shouldSwitch;
         //     table = document.getElementById("myTable");
