@@ -106,12 +106,12 @@ foreach ($result as $row) {
                     <div style=" margin: 0 0.5em;">
                         <label for="sort">Сортировка по Бренду</label>
                         <select name="sort" class="form-control" id="sort">
-                            <option value="ASC" <? if ($_GET['sort']) {
+                            <option value="ASC" <? if (isset($_GET['sort'])) {
                                 if ($_GET['sort'] == 'ASC')
                                     echo 'selected';
                             } ?>>По возрастанию
                             </option>
-                            <option value="DESC" <? if ($_GET['sort']) {
+                            <option value="DESC" <? if (isset($_GET['sort'])) {
                                 if ($_GET['sort'] == 'DESC')
                                     echo 'selected';
                             } ?>>По убыванию</option>
