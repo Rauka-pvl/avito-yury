@@ -14,8 +14,6 @@ $sort = $_GET['sort'] ?? 'ASC';
 $search = $_GET['search'] ?? '';
 $searchA = $_GET['searchA'] ?? '';
 
-var_dump($search, $searchA, $sort);
-
 if ($search && $searchA) {
     $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') AND articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort";
     $stmt = $pdo->prepare($sql);
