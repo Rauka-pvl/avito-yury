@@ -16,7 +16,7 @@ $searchA = $_GET['searchA'] ?? '';
 
 
 if ($search && $searchA) {
-    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%' :search '%') AND articul LIKE CONCAT('%', :searchA , '%') ORDER BY brand $sort";
+    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search, '%') AND articul LIKE CONCAT('%', :searchA , '%') ORDER BY brand $sort";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':search', $search, PDO::PARAM_STR);
     $stmt->bindParam(':searchA', $searchA, PDO::PARAM_STR);
