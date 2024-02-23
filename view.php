@@ -17,20 +17,20 @@ $searchA = $_GET['searchA'] ?? '';
 var_dump($search, $searchA, $sort);
 
 if ($search && $searchA) {
-    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search, '%') AND articul LIKE CONCAT('%', :searchA , '%') ORDER BY brand $sort";
+    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') AND articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':search', $search, PDO::PARAM_STR);
     $stmt->bindParam(':searchA', $searchA, PDO::PARAM_STR);
 
 } else if ($search) {
-    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', $search ,'%') ORDER BY brand $sort";
+    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') ORDER BY brand $sort";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':search', $search, PDO::PARAM_STR);
 
 } else if ($searchA) {
-    $sql = "SELECT * FROM images WHERE articul LIKE CONCAT('%', $searchA ,'%') ORDER BY brand $sort";
+    $sql = "SELECT * FROM images WHERE articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':search', $searchA, PDO::PARAM_STR);
+    $stmt->bindParam(':searchA', $searchA, PDO::PARAM_STR);
 
 } else {
     $sql = "SELECT * FROM images ORDER BY brand $sort";
