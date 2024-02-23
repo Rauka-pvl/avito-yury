@@ -11,8 +11,8 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
 require_once 'db/db.php';
 
 $sort = $_GET['sort'] ?? 'ASC';
-$search = $_GET['search'] ?? null;
-$searchA = $_GET['searchA'] ?? null;
+$search = $_GET['search'] ?? '';
+$searchA = $_GET['searchA'] ?? '';
 
 
 if ($search && $searchA) {
