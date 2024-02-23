@@ -106,8 +106,11 @@ foreach ($result as $row) {
                     <div style=" margin: 0 0.5em;">
                         <label for="sort">Сортировка по Бренду</label>
                         <select name="sort" class="form-control" id="sort">
-                            <option value="ASC" selected>По возрастанию</option>
-                            <option value="DESC">По убыванию</option>
+                            <option value="ASC" <? if ($_GET['sort'] == 'ASC')
+                                echo 'selected'; ?>>По возрастанию
+                            </option>
+                            <option value="DESC" <? if ($_GET['sort'] == 'DESC')
+                                echo 'selected'; ?>>По убыванию</option>
                         </select>
                     </div>
                     <button type="sumbit" class="btn btn-primary" style="height: 3.5em;">Поиск</button>
