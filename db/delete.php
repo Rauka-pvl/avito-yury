@@ -31,7 +31,7 @@ if ($_POST['articul'] && $_POST['brand']) {
         if (file_exists($filePath)) {
             unlink($filePath);
             echo "Файл успешно удален с сервера.";
-            header('Location: ../bool/delete/trueDelete.php');
+            header('Location: ../view.php');
         } else {
             echo "Файл не найден или не может быть удален.";
             header('Location: ../bool/delete/falseDeleteFile.php');

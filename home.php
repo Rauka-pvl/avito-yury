@@ -29,6 +29,7 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
     <div style="margin: 5px auto;" class="text-center">
         <h2>Welcome to the Dashboard</h2>
         <a href="create/create.php">Добавление</a>
+        <a href="create/createM.php">Добавление много</a>
         <a href="view.php">Просмотр</a>
         <a href="logout.php">Выйти</a>
     </div>
