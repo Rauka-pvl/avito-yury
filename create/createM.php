@@ -30,6 +30,20 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
         img {
             max-width: 470px;
         }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
     <div class="container">
         <div style="margin: 5px auto; display:flex; justify-content: space-between;">
@@ -115,10 +129,18 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                     modal.id = 'myModal' + i;
                     modal.innerHTML = '<div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Просмотр</h4></div><div class="modal-body"><img src="" id="modalImage" ></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button></div></div></div>';
 
+                    let close = document.createElement('span');
+                    close.classList.add('close');
+                    close.innerHTML = '&times;';
+                    close.addEventListener('click', function () {
+                        files_div.removeChild(div);
+                    });
+
                     div.appendChild(inputA);
                     div.appendChild(inputB);
                     div.appendChild(viewImg);
                     div.appendChild(modal);
+                    div.appendChild(close);
 
                     files_div.appendChild(div);
 
@@ -203,7 +225,7 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                         for (var i = 0; i < response.length; i++) {
                             text = text + response[i] + "\n";
                         }
-                        text = text + "\n Не получилось удалить!";
+                        text = text + "\n Не получилось добавить!";
                         alert(text);
                     }
                 },
