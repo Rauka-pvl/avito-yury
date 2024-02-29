@@ -36,8 +36,6 @@ foreach ($xml->Ad as $ad) {
         }
     }
 }
-
-// Сохраняем изменения
 file_put_contents('modified_articles.xml', $xml->asXML());
 
 ?>
