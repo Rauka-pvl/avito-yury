@@ -232,7 +232,7 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                 error: function (error) {
                     // Обработка ошибки
                     console.error('Произошла ошибка при отправке данных на сервер:', error);
-                    alert('Произошла ошибка при отправке данных на сервер.');
+                    alert('Произошла ошибка при отправке данных на сервер.', error);
                 }
             });
         }
