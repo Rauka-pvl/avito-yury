@@ -30,9 +30,9 @@ foreach ($xml->Ad as $ad) {
         unset($ad->Images->Image);
         foreach ($row as $r) {
             $path = "https://233204.fornex.cloud/uploads/" . strtolower($r['brand']) . "/" . strtolower($r['articul']);
-            $newImage = $ad->Images->addChild('Image');
+            $newImage = $ad->Images->addChild('Image', ' ');
             $newImage->addAttribute('url', $path);
-            $newImage = $ad->Images->addChild('/Image');
+            // $newImage = $ad->Images->addChild('/Image');
         }
     }
 }
