@@ -1,12 +1,6 @@
 <?php
 session_start();
 
-// Проверяем, авторизован ли пользователь
-if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
-    header('Location: ../index.php');
-    exit;
-}
-
 // Подключение к базе данных (предполагается, что $pdo уже установлено)
 require_once 'db.php';
 
@@ -20,43 +14,56 @@ if (json_last_error() !== JSON_ERROR_NONE) {
     echo json_encode(['error' => 'Invalid JSON data']);
     exit;
 }
+
 $arr = [];
-foreach ($data as $key => $d) {
-    $brand = trim(strtolower($d->brand), " ");
-    $articul = trim(strtolower($d->fileName));
 
-    $uploadDirectory = "../uploads/" . $brand . "/";
-    if (!file_exists($uploadDirectory)) {
-        mkdir($uploadDirectory, 0777, true);
-    }
+// Начало транзакции
+$pdo->beginTransaction();
 
-    $uploadPath = $uploadDirectory . $articul;
+try {
+    foreach ($data as $key => $d) {
+        $brand = trim(strtolower($d->brand), " ");
+        $articul = trim(strtolower($d->fileName));
 
-    // Декодируем данные в двоичный формат
-    $binaryData = base64_decode($d->photoSrc);
-
-    // Сохраняем двоичные данные в файл
-    if (file_exists($uploadPath)) {
-        unlink($uploadPath);
-        if (file_put_contents($uploadPath, $binaryData)) {
+        $uploadDirectory = "../uploads/" . $brand . "/";
+        if (!file_exists($uploadDirectory)) {
+            mkdir($uploadDirectory, 0777, true);
         }
-    } elseif (file_put_contents($uploadPath, $binaryData) !== false) {
-        $sql = 'INSERT INTO images (brand, articul) VALUES (:brand, :articul) ON DUPLICATE KEY UPDATE articul = :articul';
-        $stmt = $pdo->prepare($sql);
 
-        // Привязка параметров и выполнение запроса
-        $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
-        $stmt->bindParam(':articul', $articul, PDO::PARAM_STR);
+        $uploadPath = $uploadDirectory . $articul;
 
-        // Выполнение запроса
-        if ($stmt->execute()) {
-            http_response_code(200);
+        // Декодируем данные в двоичный формат
+        $binaryData = base64_decode($d->photoSrc);
+
+        // Сохраняем двоичные данные в файл
+        if (file_exists($uploadPath)) {
+            unlink($uploadPath);
+            file_put_contents($uploadPath, $binaryData);
+        } else if (file_put_contents($uploadPath, $binaryData) !== false) {
+            $sql = 'INSERT INTO images (brand, articul) VALUES (:brand, :articul) ON DUPLICATE KEY UPDATE articul = :articul';
+            $stmt = $pdo->prepare($sql);
+
+            // Привязка параметров и выполнение запроса
+            $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
+            $stmt->bindParam(':articul', $articul, PDO::PARAM_STR);
+
+            // Выполнение запроса
+            if ($stmt->execute()) {
+                http_response_code(200);
+            } else {
+                array_push($arr, ['error' => "Error adding data to the table: $brand/$articul"]);
+            }
         } else {
-            array_push($arr, ['error' => "Error adding data to the table: $brand/$articul"]);
+            array_push($arr, ['error' => "Failed to save file: $brand/$articul"]);
         }
-    } else {
-        array_push($arr, ['error' => "Failed to save file: $brand/$articul"]);
     }
+
+    // Фиксация изменений
+    $pdo->commit();
+} catch (Exception $e) {
+    // Откат изменений в случае ошибки
+    $pdo->rollBack();
+    array_push($arr, ['error' => "Error processing files: " . $e->getMessage()]);
 }
+
 echo json_encode($arr);
-?>
