@@ -220,14 +220,14 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                     if (response == '[]') {
                         window.location = "../view.php";
                     } else {
-                        responseJ = JSON.parse(response);
+                        // responseJ = JSON.parse(response);
                         // var text = "Файлы: \n";
                         // for (var i = 0; i < response.length; i++) {
                         //     text = text + response[i] + "\n";
                         // }
                         // text = text + "\n Не получилось добавить!";
-                        alert(responseJ);
-                        alert(response);
+                        // alert(responseJ);
+                        console.log(response);
                     }
                 },
                 error: function (error) {
