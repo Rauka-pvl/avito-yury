@@ -214,8 +214,9 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
         function sendDataToServer(data) {
             $.ajax({
                 type: 'POST',
-                url: '../db/createM.php', // Замените на путь к вашему серверному скрипту
+                url: '../db/createM.php',
                 data: { data: JSON.stringify(data) },
+                timeout: 3600000,
                 success: function (response) {
                     if (response == '[]') {
                         window.location = "../view.php";
