@@ -122,7 +122,7 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                     viewImg.setAttribute('data-toggle', 'modal');
                     viewImg.setAttribute('data-target', '#myModal' + i);
                     viewImg.textContent = 'Просмотр';
-                    viewImg.onclick = function () { previewImage(i); };
+                    // viewImg.onclick = function () { previewImage(i); };
 
                     let modal = document.createElement('div');
                     modal.classList.add('modal');
