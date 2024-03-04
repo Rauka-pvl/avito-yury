@@ -1,4 +1,5 @@
 <?php
+ini_set('max_execution_time', 3600);
 session_start();
 
 // Подключение к базе данных (предполагается, что $pdo уже установлено)
