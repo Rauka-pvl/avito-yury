@@ -153,8 +153,8 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                         let filesI = folderInput.files;
 
                         if (filesI && filesI.length > i && filesI[i]) {
+                            let file = files[i];
                             let reader = new FileReader();
-
                             reader.onload = function (e) {
                                 modalImage.src = e.target.result;
                             };
