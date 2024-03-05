@@ -213,7 +213,7 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                         await sendFormDataToServer(formDataGroup);
                         await delay(delayInterval);
                     }
-                    setTimeout(function {
+                    setTimeout(function () {
                         window.location = "../view.php";
                     }, 5000);
                 }
