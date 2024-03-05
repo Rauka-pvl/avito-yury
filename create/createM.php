@@ -173,8 +173,11 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
         function addData() {
             let filesDiv = document.getElementById('files');
             let divs = filesDiv.querySelectorAll('div.d-flex');
-            let formData = new FormData();
+            // let formData = new FormData();   
             let allInputsFilled = true;
+
+            const formDataArray = [];
+            const delayInterval = 1000;
 
             divs.forEach((div, fileIndex) => {
 
@@ -191,13 +194,32 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                     let modalImage = modal.querySelector('#modalImage');
                     let photoSrc = modalImage ? modalImage.src : '';
 
-                    formData.append('fileName[]', inputA.value.trim());
-                    formData.append('brand[]', brand);
-                    formData.append('photoSrc[]', photoSrc);
+                    formDataArray.push({
+                        fileName: inputA.value.trim(),
+                        brand: brand,
+                        photoSrc: photoSrc
+                    });
+
+                    // formData.append('fileName[]', inputA.value.trim());
+                    // formData.append('brand[]', brand);
+                    // formData.append('photoSrc[]', photoSrc);
                 }
             });
             if (allInputsFilled) {
-                sendDataToServer(formData);
+                async function sendFormDataWithDelay() {
+                    for (let i = 0; i < formDataArray.length; i += 10) {
+                        // Отправка данных для каждой группы с интервалом
+                        let formDataGroup = formDataArray.slice(i, i + 10);
+                        await sendFormDataToServer(formDataGroup);
+                        await delay(delayInterval);
+                    }
+                    setTimeout(function {
+                        window.location = "../view.php";
+                    }, 5000);
+                }
+
+                // Запуск функции отправки данных
+                sendFormDataWithDelay();
             } else {
                 alert('Пожалуйста, заполните все инпуты перед добавлением.');
             }
@@ -208,33 +230,43 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
             addData();
         });
 
-        function sendDataToServer(data) {
-            $.ajax({
-                type: 'POST',
-                url: '../db/createM.php',
-                data: data,
-                processData: false,
-                contentType: false,
-                timeout: 3600000,
-                success: function (response) {
-                    if (response == '[]') {
-                        window.location = "../view.php";
-                    } else {
-                        // responseJ = JSON.parse(response);
-                        // var text = "Файлы: \n";
-                        // for (var i = 0; i < response.length; i++) {
-                        //     text = text + response[i] + "\n";
-                        // }
-                        // text = text + "\n Не получилось добавить!";
-                        // alert(responseJ);
-                        console.log(response);
-                    }
-                },
-                error: function (error) {
-                    console.error('Произошла ошибка при отправке данных на сервер:', error);
-                    alert('Произошла ошибка при отправке данных на сервер.', error);
-                }
+        function sendFormDataToServer(formDataGroup) {
+            let formData = new FormData();
+
+            formDataGroup.forEach(data => {
+                formData.append('fileName[]', data.fileName);
+                formData.append('brand[]', data.brand);
+                formData.append('photoSrc[]', data.photoSrc);
             });
+
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    type: 'POST',
+                    url: '../db/createM.php',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    timeout: 3600000,
+                    success: function (response) {
+                        if (response == '[]') {
+                            resolve();
+                        } else {
+                            console.log(response);
+                            reject('Ошибка при отправке данных на сервер.');
+                        }
+                    },
+                    error: function (error) {
+                        console.error('Произошла ошибка при отправке данных на сервер:', error);
+                        alert('Произошла ошибка при отправке данных на сервер.', error);
+                        reject('Ошибка при отправке данных на сервер.');
+                    }
+                });
+            });
+        }
+
+        // Функция для создания задержки
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
         }
     </script>
 
