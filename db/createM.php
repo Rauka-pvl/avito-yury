@@ -9,6 +9,10 @@ ini_set('memory_limit', '4096M');
 // var_dump($_POST['photoSrc']);
 
 session_start();
+if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+    header('Location: index.php');
+    exit;
+}
 require_once 'db.php';
 
 $fileName = $_POST['fileName'];
