@@ -1,4 +1,6 @@
 <?php
+ini_set('post_max_size', '1024M');
+
 session_start();
 
 // Проверяем, авторизован ли пользователь
@@ -151,7 +153,6 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                         let filesI = folderInput.files;
 
                         if (filesI && filesI.length > i && filesI[i]) {
-                            let file = files[i];
                             let reader = new FileReader();
 
                             reader.onload = function (e) {
@@ -172,42 +173,30 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
         function addData() {
             let filesDiv = document.getElementById('files');
             let divs = filesDiv.querySelectorAll('div.d-flex');
-            let data = [];
-
-            let allInputsFilled = true; // Переменная для отслеживания заполненности всех инпутов
+            let formData = new FormData();
 
             divs.forEach((div, fileIndex) => {
                 let inputA = div.querySelector('input[placeholder="Артикул"]');
                 let inputB = div.querySelector('input[placeholder="Бренд"]');
+                let inputFile = div.querySelector('input[type="file"]');
                 let brand = inputB.value.trim();
-
-                // Проверка заполненности инпутов
-                if (inputA.value.trim() === '' || brand === '') {
-                    allInputsFilled = false;
-                }
 
                 let modal = document.getElementById('myModal' + fileIndex);
                 if (modal) {
                     let modalImage = modal.querySelector('#modalImage');
                     let photoSrc = modalImage ? modalImage.src : '';
 
-                    data.push({
-                        fileName: inputA.value.trim(),
-                        brand: brand,
-                        photoSrc: photoSrc
-                    });
+                    formData.append('fileName[]', inputA.value.trim());
+                    formData.append('brand[]', brand);
+                    formData.append('photoSrc[]', photoSrc);
                 }
             });
-
-            // Отправка данных на сервер только если все инпуты заполнены
-            if (allInputsFilled) {
-                sendDataToServer(data);
-            } else {
-                alert('Пожалуйста, заполните все инпуты перед добавлением.');
-            }
+            // console.log(formData);
+            sendDataToServer(formData);
         }
+
         document.getElementById('myForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Предотвратить стандартное поведение формы
+            event.preventDefault();
             addData();
         });
 
@@ -215,7 +204,9 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
             $.ajax({
                 type: 'POST',
                 url: '../db/createM.php',
-                data: { data: JSON.stringify(data) },
+                data: data,
+                processData: false,
+                contentType: false,
                 timeout: 3600000,
                 success: function (response) {
                     if (response == '[]') {
@@ -232,30 +223,11 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                     }
                 },
                 error: function (error) {
-                    // Обработка ошибки
                     console.error('Произошла ошибка при отправке данных на сервер:', error);
                     alert('Произошла ошибка при отправке данных на сервер.', error);
                 }
             });
         }
-
-
-
-        // const brand = document.getElementById('brand');
-        // brand.addEventListener('input', function () {
-        //     const inputValue = fruitInput.value.toLowerCase();
-        //     const datalistOptions = document.querySelectorAll('#brand_list option');
-
-        //     // Проверьте каждый вариант в datalist и скройте те, которые не соответствуют введенному значению
-        //     datalistOptions.forEach(function (option) {
-        //         const optionValue = option.value.toLowerCase();
-        //         if (optionValue.includes(inputValue)) {
-        //             option.style.display = 'block';
-        //         } else {
-        //             option.style.display = 'none';
-        //         }
-        //     });
-        // });
     </script>
 
 </body>
