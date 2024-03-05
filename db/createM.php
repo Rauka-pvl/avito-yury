@@ -6,65 +6,65 @@ ini_set('max_execution_time', 3600);
 ini_set('post_max_size', '2048M');
 ini_set('memory_limit', '4096M');
 
-// var_dump($_POST['photoSrc']);
+var_dump($_POST);
 
-session_start();
-if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
-    header('Location: index.php');
-    exit;
-}
-require_once 'db.php';
+// session_start();
+// if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+//     header('Location: index.php');
+//     exit;
+// }
+// require_once 'db.php';
 
-$fileName = $_POST['fileName'];
-$brand = $_POST['brand'];
-$photoSrc = $_POST['photoSrc'];
-$arr = [];
-$pdo->beginTransaction();
+// $fileName = $_POST['fileName'];
+// $brand = $_POST['brand'];
+// $photoSrc = $_POST['photoSrc'];
+// $arr = [];
+// $pdo->beginTransaction();
 
-try {
-    foreach ($fileName as $key => $d) {
-        $brand = trim(strtolower($brand[$key]), " ");
-        $articul = trim(strtolower($d));
+// try {
+//     foreach ($fileName as $key => $d) {
+//         $brand = trim(strtolower($brand[$key]), " ");
+//         $articul = trim(strtolower($d));
 
-        $uploadDirectory = "../uploads/" . $brand . "/";
-        if (!file_exists($uploadDirectory)) {
-            mkdir($uploadDirectory, 0777, true);
-        }
+//         $uploadDirectory = "../uploads/" . $brand . "/";
+//         if (!file_exists($uploadDirectory)) {
+//             mkdir($uploadDirectory, 0777, true);
+//         }
 
-        $uploadPath = $uploadDirectory . $articul;
+//         $uploadPath = $uploadDirectory . $articul;
 
-        // Декодируем данные в двоичный формат
-        $binaryData = base64_decode($photoSrc[$key]);
+//         // Декодируем данные в двоичный формат
+//         $binaryData = base64_decode($photoSrc[$key]);
 
-        // Сохраняем двоичные данные в файл
-        if (file_exists($uploadPath)) {
-            unlink($uploadPath);
-            file_put_contents($uploadPath, $binaryData);
-        } else if (file_put_contents($uploadPath, $binaryData) !== false) {
-            $sql = 'INSERT INTO images (brand, articul) VALUES (:brand, :articul) ON DUPLICATE KEY UPDATE articul = :articul';
-            $stmt = $pdo->prepare($sql);
+//         // Сохраняем двоичные данные в файл
+//         if (file_exists($uploadPath)) {
+//             unlink($uploadPath);
+//             file_put_contents($uploadPath, $binaryData);
+//         } else if (file_put_contents($uploadPath, $binaryData) !== false) {
+//             $sql = 'INSERT INTO images (brand, articul) VALUES (:brand, :articul) ON DUPLICATE KEY UPDATE articul = :articul';
+//             $stmt = $pdo->prepare($sql);
 
-            // Привязка параметров и выполнение запроса
-            $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
-            $stmt->bindParam(':articul', $articul, PDO::PARAM_STR);
+//             // Привязка параметров и выполнение запроса
+//             $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
+//             $stmt->bindParam(':articul', $articul, PDO::PARAM_STR);
 
-            // Выполнение запроса
-            if ($stmt->execute()) {
-                http_response_code(200);
-            } else {
-                array_push($arr, ['error' => "Error adding data to the table: $brand/$articul"]);
-            }
-        } else {
-            array_push($arr, ['error' => "Failed to save file: $brand/$articul"]);
-        }
-    }
+//             // Выполнение запроса
+//             if ($stmt->execute()) {
+//                 http_response_code(200);
+//             } else {
+//                 array_push($arr, ['error' => "Error adding data to the table: $brand/$articul"]);
+//             }
+//         } else {
+//             array_push($arr, ['error' => "Failed to save file: $brand/$articul"]);
+//         }
+//     }
 
-    // Фиксация изменений
-    $pdo->commit();
-} catch (Exception $e) {
-    // Откат изменений в случае ошибки
-    $pdo->rollBack();
-    array_push($arr, ['error' => "Error processing files: " . $e->getMessage()]);
-}
+//     // Фиксация изменений
+//     $pdo->commit();
+// } catch (Exception $e) {
+//     // Откат изменений в случае ошибки
+//     $pdo->rollBack();
+//     array_push($arr, ['error' => "Error processing files: " . $e->getMessage()]);
+// }
 
-echo json_encode($arr);
+// echo json_encode($arr);
