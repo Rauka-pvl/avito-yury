@@ -174,12 +174,17 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
             let filesDiv = document.getElementById('files');
             let divs = filesDiv.querySelectorAll('div.d-flex');
             let formData = new FormData();
+            let allInputsFilled = true;
 
             divs.forEach((div, fileIndex) => {
+
                 let inputA = div.querySelector('input[placeholder="Артикул"]');
                 let inputB = div.querySelector('input[placeholder="Бренд"]');
-                let inputFile = div.querySelector('input[type="file"]');
                 let brand = inputB.value.trim();
+
+                if (inputA.value.trim() === '' || brand === '' || !inputFile.files.length) {
+                    allInputsFilled = false;
+                }
 
                 let modal = document.getElementById('myModal' + fileIndex);
                 if (modal) {
@@ -191,8 +196,11 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                     formData.append('photoSrc[]', photoSrc);
                 }
             });
-            // console.log(formData);
-            sendDataToServer(formData);
+            if (allInputsFilled) {
+                sendDataToServer(formData);
+            } else {
+                alert('Пожалуйста, заполните все инпуты перед добавлением.');
+            }
         }
 
         document.getElementById('myForm').addEventListener('submit', function (event) {
