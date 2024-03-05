@@ -19,8 +19,7 @@ $pdo->beginTransaction();
 
 try {
     foreach ($fileName as $key => $d) {
-        // $brand = trim(strtolower($brand[$key]), " ");
-        $brand = 'test';
+        $brand = trim(strtolower($brand[$key]), " ");
         $articul = trim(strtolower($d));
 
         $uploadDirectory = "../uploads/" . $brand . "/";
