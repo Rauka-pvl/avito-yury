@@ -182,7 +182,7 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                 let inputB = div.querySelector('input[placeholder="Бренд"]');
                 let brand = inputB.value.trim();
 
-                if (inputA.value.trim() === '' || brand === '' || !inputFile.files.length) {
+                if (inputA.value.trim() === '' || brand === '') {
                     allInputsFilled = false;
                 }
 
