@@ -14,14 +14,14 @@ ini_set('memory_limit', '4096M');
 require_once 'db.php';
 
 $fileName = $_POST['fileName'];
-$brand = $_POST['brand'];
+$brands = $_POST['brand'];
 $photoSrc = $_POST['photoSrc'];
 $arr = [];
 $pdo->beginTransaction();
 
 try {
     foreach ($fileName as $key => $d) {
-        $brand = trim(strtolower($brand[$key]), " ");
+        $brand = trim(strtolower($brands[$key]), " ");
         $articul = trim(strtolower($d));
 
         $uploadDirectory = "../uploads/" . $brand . "/";
