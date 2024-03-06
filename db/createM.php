@@ -32,7 +32,8 @@ try {
         $uploadPath = $uploadDirectory . $articul;
 
         // Декодируем данные в двоичный формат
-        $binaryData = base64_decode($photoSrc[$key]);
+        $base64 = explode(',', $photoSrc[$key]);
+        $binaryData = base64_decode($base64[1]);
 
         // Сохраняем двоичные данные в файл
         if (file_exists($uploadPath)) {
