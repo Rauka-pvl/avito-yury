@@ -29,9 +29,9 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
 </head>
 
 <body>
-    <div style="margin: 5px auto;" class="text-center">
+    <div style="margin: 5px auto;" class="container text-center">
         <h2>Добро пожаловать!</h2>
-        <div class="container" style="display: flex; justify-content: space-evenly;">
+        <div style="display: flex; justify-content: space-evenly;">
             <a href="create/create.php" class="btn btn-primary">Добавление</a>
             <a href="create/createM.php" class="btn btn-primary">Добавление много</a>
             <a href="view.php" class="btn btn-primary">Просмотр</a>
