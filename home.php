@@ -41,21 +41,22 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
     </div>
 </body>
 <script>
-    $.ajax({
-        type: 'POST',
-        url: 'xml.php',
-        // contentType: 'application/json',
-        data: JSON.stringify(dataToSend),
-        success: function (response) {
-            console.log('Успешный ответ: ', response);
-            if (response) {
-                alert('Обновлён!');
+    function uppdateXML() {
+        $.ajax({
+            type: 'GET',
+            url: 'xml.php',
+            data: ,
+            success: function (response) {
+                console.log('Успешный ответ: ', response);
+                if (response) {
+                    alert('Обновлён!');
+                }
+            },
+            error: function (error) {
+                console.error('Ошибка: ', error);
             }
-        },
-        error: function (error) {
-            console.error('Ошибка: ', error);
-        }
-    });
+        });
+    }
 </script>
 
 </html>
