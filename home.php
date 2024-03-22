@@ -23,16 +23,39 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
     <div style="margin: 5px auto;" class="text-center">
         <h2>Welcome to the Dashboard</h2>
-        <a href="create/create.php">Добавление</a>
-        <a href="create/createM.php">Добавление много</a>
-        <a href="view.php">Просмотр</a>
-        <a href="logout.php">Выйти</a>
+        <div>
+            <a href="create/create.php" class="btn btn-primary">Добавление</a>
+            <a href="create/createM.php" class="btn btn-primary">Добавление много</a>
+            <a href="view.php" class="btn btn-primary">Просмотр</a>
+            <button onclick="uppdateXML()" class="btn btn-primary">Обновление XML</button>
+            <a href="logout.php" class="btn btn-danger">Выйти</a>
+        </div>
     </div>
 </body>
+<script>
+    $.ajax({
+        type: 'POST',
+        url: 'xml.php',
+        // contentType: 'application/json',
+        data: JSON.stringify(dataToSend),
+        success: function (response) {
+            console.log('Успешный ответ: ', response);
+            if (response) {
+                alert('Обновлён!');
+            }
+        },
+        error: function (error) {
+            console.error('Ошибка: ', error);
+        }
+    });
+</script>
 
 </html>
