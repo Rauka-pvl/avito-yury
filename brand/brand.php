@@ -64,6 +64,8 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 </thead>
                 <tbody>
                     <? foreach ($brands as $key => $brand) {
+                        $sprav = 'Пусто!';
+
                         echo "<tr><td>$brand</td><td>
                         <button class='btn btn-primary' data-toggle='modal' data-target='#myModal$key'>Просмотр</button>
                         <button class='btn btn-warning' data-toggle='modal' data-target='#myModal2-$key'>Редактировать</button>
