@@ -20,7 +20,28 @@
 </head>
 
 <body>
-
+    <style>
+        tr {
+            border-bottom: 1px solid black;
+        }
+    </style>
+    <div class="container">
+        <div>Назад</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Бренд</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>12323</td>
+                    <td>1233</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>
