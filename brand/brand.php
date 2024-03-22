@@ -81,7 +81,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         } else {
                             $s = explode('|', $sprav);
                             foreach ($s as $ss) {
-                                $sp += "$ss <br>";
+                                $sp .= $ss . "<br>";
                             }
                         }
 
