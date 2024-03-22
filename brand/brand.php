@@ -2,8 +2,6 @@
 require_once '../db/db.php';
 
 $stmt = $pdo->query("SELECT DISTINCT brand FROM images");
-
-// Получение результатов запроса
 $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
 ?>
 
@@ -26,6 +24,9 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -64,9 +65,36 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 <tbody>
                     <? foreach ($brands as $key => $brand) {
                         echo "<tr><td>$brand</td><td>
-                        <button class='btn btn-primary'>Просмотр</button>
-                        <button class='btn btn-danger'>Редактировать</button>
+                        <button class='btn btn-primary' data-toggle='modal' data-target='#myModal$key'>Просмотр</button>
+                        <button class='btn btn-warning' data-toggle='modal' data-target='#myModal2-$key'>Редактировать</button>
                         </td></tr>";
+                        $stmt1 = $pdo->query("SELECT * FROM brand_sprav WHERE brand = :brand");
+                        $stmt1->bindParam(':brand', $brand, PDO::PARAM_STR);
+                        $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
+
+                        echo "
+                        <div class='modal' id='myModal$key'>
+                            <div class='modal-dialog'>
+                                <div class='modal-content'>
+                
+                                    <!-- Заголовок модальной формы -->
+                                    <div class='modal-header'>
+                                        <h4 class='modal-title'>Просмотр</h4>
+                                    </div>
+                
+                                    <!-- Тело модальной формы -->
+                                    <div class='modal-body'>
+                                        " . $sprav['sprav'] . "
+                                    </div>
+                
+                                    <!-- Подвал модальной формы -->
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
+                                    </div>
+                
+                                </div>
+                            </div>
+                        </div>";
                     }
                     ?>
                 </tbody>
