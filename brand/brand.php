@@ -84,7 +84,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 
                                     <!-- Тело модальной формы -->
                                     <div class='modal-body'>
-                                        " . $sprav['sprav'] . "
+                                        
                                     </div>
                 
                                     <!-- Подвал модальной формы -->
