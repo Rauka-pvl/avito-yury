@@ -52,7 +52,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
     </style>
     <div class="container">
         <div class="center">
-            <div style="margin: 5px auto;"><a class="btn btn-primary" href="../home.php">Назад</a></div>
+            <div style="margin: 0.75em auto;"><a class="btn btn-primary" href="../home.php">Назад</a></div>
             <table>
                 <thead>
                     <tr>
