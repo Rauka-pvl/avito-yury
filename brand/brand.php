@@ -36,6 +36,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
         table {
             margin: 0 auto;
+            width: 100%;
         }
 
         th {
