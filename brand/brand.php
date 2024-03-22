@@ -77,6 +77,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
                         if (!$sprav) {
                             $sprav = 'Пусто!';
+                            $edit = "<input type='text' placholder='Бранд...' class='form-control'>";
                         }
 
                         echo "
@@ -92,6 +93,29 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                                     <!-- Тело модальной формы -->
                                     <div class='modal-body'>
                                         " . $sprav . "
+                                    </div>
+                    
+                                    <!-- Подвал модальной формы -->
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
+                                    </div>
+                    
+                                </div>
+                            </div>
+                        </div>";
+                        echo "
+                        <div class='modal' id='myModal2-$key'>
+                            <div class='modal-dialog'>
+                                <div class='modal-content'>
+                    
+                                    <!-- Заголовок модальной формы -->
+                                    <div class='modal-header'>
+                                        <h4 class='modal-title'>Редактировать: $brand</h4>
+                                    </div>
+                    
+                                    <!-- Тело модальной формы -->
+                                    <div class='modal-body'>
+                                        <input type='text'>
                                     </div>
                     
                                     <!-- Подвал модальной формы -->
