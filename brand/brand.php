@@ -1,3 +1,17 @@
+<?php
+require_once '../db/db.php';
+
+$stmt = $pdo->query("SELECT DISTINCT brand FROM images");
+
+// Получение результатов запроса
+$brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+// Вывод результатов
+foreach ($brands as $brand) {
+    echo $brand . "<br>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
