@@ -79,7 +79,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     
                                     <!-- Заголовок модальной формы -->
                                     <div class='modal-header'>
-                                        <h4 class='modal-title'>Просмотр</h4>
+                                        <h4 class='modal-title'>Просмотр: $brand</h4>
                                     </div>
                     
                                     <!-- Тело модальной формы -->
