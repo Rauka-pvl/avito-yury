@@ -71,8 +71,8 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         <button class='btn btn-primary' data-toggle='modal' data-target='#myModal$key'>Просмотр</button>
                         <button class='btn btn-warning' data-toggle='modal' data-target='#myModal2-$key'>Редактировать</button>
                         </td></tr>";
-                        $stmt1 = $pdo->prepare("SELECT sprav FROM brand_sprav WHERE brand = :brand");
-                        $stmt1->bindParam(':brand', $brand, PDO::PARAM_STR);
+                        $stmt1 = $pdo->prepare("SELECT sprav FROM brand_sprav WHERE brand = 'skt'");
+                        // $stmt1->bindParam(':brand', $brand, PDO::PARAM_STR);
                         $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
                         echo $sprav;
                         if (!$sprav) {
