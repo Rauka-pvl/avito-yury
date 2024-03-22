@@ -76,8 +76,13 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
 
                         if (!$sprav) {
-                            $sprav = 'Пусто!';
+                            $sp = 'Пусто!';
                             $edit = "<input type='text' placholder='Бранд...' class='form-control'>";
+                        } else {
+                            $s = explode('|', $sprav);
+                            foreach ($s as $ss) {
+                                $sp += "$ss <br>";
+                            }
                         }
 
                         echo "
@@ -92,7 +97,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     
                                     <!-- Тело модальной формы -->
                                     <div class='modal-body'>
-                                        $sprav
+                                        $sp
                                     </div>
                     
                                     <!-- Подвал модальной формы -->
