@@ -63,7 +63,10 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 </thead>
                 <tbody>
                     <? foreach ($brands as $key => $brand) {
-                        echo "<tr><td>$brand</td><td>$key</td></tr>";
+                        echo "<tr><td>$brand</td><td>
+                        <button class='btn btn-primary'>Просмотр</button>
+                        <button class='btn btn-danger'>Редактировать</button>
+                        </td></tr>";
                     }
                     ?>
                 </tbody>
