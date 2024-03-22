@@ -72,29 +72,29 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         // $stmt1->bindParam(':brand', $brand, PDO::PARAM_STR);
                         // $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
                     
-                        // echo "
-                        // <div class='modal' id='myModal$key'>
-                        //     <div class='modal-dialog'>
-                        //         <div class='modal-content'>
+                        echo "
+                        <div class='modal' id='myModal$key'>
+                            <div class='modal-dialog'>
+                                <div class='modal-content'>
                     
-                        //             <!-- Заголовок модальной формы -->
-                        //             <div class='modal-header'>
-                        //                 <h4 class='modal-title'>Просмотр</h4>
-                        //             </div>
+                                    <!-- Заголовок модальной формы -->
+                                    <div class='modal-header'>
+                                        <h4 class='modal-title'>Просмотр</h4>
+                                    </div>
                     
-                        //             <!-- Тело модальной формы -->
-                        //             <div class='modal-body'>
+                                    <!-- Тело модальной формы -->
+                                    <div class='modal-body'>
                     
-                        //             </div>
+                                    </div>
                     
-                        //             <!-- Подвал модальной формы -->
-                        //             <div class='modal-footer'>
-                        //                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
-                        //             </div>
+                                    <!-- Подвал модальной формы -->
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
+                                    </div>
                     
-                        //         </div>
-                        //     </div>
-                        // </div>";
+                                </div>
+                            </div>
+                        </div>";
                     }
                     ?>
                 </tbody>
