@@ -92,7 +92,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     
                                     <!-- Тело модальной формы -->
                                     <div class='modal-body'>
-                                        " . $sprav . "
+                                        $sprav
                                     </div>
                     
                                     <!-- Подвал модальной формы -->
@@ -120,7 +120,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     
                                     <!-- Подвал модальной формы -->
                                     <div class='modal-footer'>
-                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
+                                        $edit
                                     </div>
                     
                                 </div>
