@@ -74,7 +74,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         $stmt1 = $pdo->prepare("SELECT sprav FROM brand_sprav WHERE brand = :brand");
                         $stmt1->bindParam(':brand', $brand, PDO::PARAM_STR);
                         $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
-
+                        echo $sprav;
                         if (!$sprav) {
                             $sp = 'Пусто!';
                             $edit = "<input type='text' placholder='Бранд...' class='form-control'>";
