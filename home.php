@@ -45,7 +45,6 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
         $.ajax({
             type: 'GET',
             url: 'xml.php',
-            data: ,
             success: function (response) {
                 console.log('Успешный ответ: ', response);
                 if (response) {
