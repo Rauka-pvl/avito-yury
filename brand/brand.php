@@ -40,8 +40,8 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
             <table>
                 <thead>
                     <tr>
-                        <th>Бренд</th>
-                        <th>Действие</th>
+                        <th style="width: 50%;">Бренд</th>
+                        <th style="width: 50%;">Действие</th>
                     </tr>
                 </thead>
                 <tbody>
