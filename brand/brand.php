@@ -33,6 +33,22 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
         tr {
             border-bottom: 1px solid black;
         }
+
+        table {
+            margin: 0 auto;
+        }
+
+        th {
+            width: 50%;
+            text-align: center;
+            /* border: 1px solid black; */
+        }
+
+        td {
+            padding: 5px;
+            text-align: center;
+            /* border: 1px solid black; */
+        }
     </style>
     <div class="container">
         <div class="center">
@@ -40,8 +56,8 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
             <table>
                 <thead>
                     <tr>
-                        <th style="width: 50%;">Бренд</th>
-                        <th style="width: 50%;">Действие</th>
+                        <th>Бренд</th>
+                        <th>Действие</th>
                     </tr>
                 </thead>
                 <tbody>
