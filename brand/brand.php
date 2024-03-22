@@ -115,12 +115,12 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     
                                     <!-- Тело модальной формы -->
                                     <div class='modal-body'>
-                                        <input type='text'>
+                                        $edit
                                     </div>
                     
                                     <!-- Подвал модальной формы -->
                                     <div class='modal-footer'>
-                                        $edit
+                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
                                     </div>
                     
                                 </div>
