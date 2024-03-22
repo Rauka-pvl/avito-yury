@@ -5,11 +5,6 @@ $stmt = $pdo->query("SELECT DISTINCT brand FROM images");
 
 // Получение результатов запроса
 $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-// Вывод результатов
-foreach ($brands as $brand) {
-    echo $brand . "<br>";
-}
 ?>
 
 <!DOCTYPE html>
@@ -50,10 +45,10 @@ foreach ($brands as $brand) {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>12323</td>
-                        <td>1233</td>
-                    </tr>
+                    <? foreach ($brands as $key => $brand) {
+                        echo "<tr><td>$brand</td><td>$key</td></tr>";
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
