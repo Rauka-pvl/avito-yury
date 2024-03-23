@@ -167,6 +167,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
 <script>
     function closeI(e) {
         console.log(e.parentElement);
+        remove(e.parentElement);
     }
 </script>
 
