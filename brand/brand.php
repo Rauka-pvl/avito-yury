@@ -82,6 +82,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                             $edit = "<input type='text' placholder='Бранд...' class='form-control'>";
                         } else {
                             $s = explode('|', $sprav);
+                            var_dump($s);
                             foreach ($s as $ss) {
                                 $sp .= $ss . "<br>";
                             }
@@ -127,7 +128,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     
                                     <!-- Подвал модальной формы -->
                                     <div class='modal-footer'>
-                                        <button type='button' class='btn btn-success' data-dismiss='modal'>Добавить</button>
+                                        <button type='button' class='btn btn-success'>Добавить</button>
                                         <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
                                     </div>
                     
