@@ -54,6 +54,10 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
             text-align: center;
             /* border: 1px solid black; */
         }
+
+        .i-m {
+            margin: 0.5em 0;
+        }
     </style>
     <div class="container">
         <div class="center">
@@ -86,7 +90,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                             $edit = "<div>";
                             foreach ($s as $ss) {
                                 $sp .= $ss . "<br>";
-                                $edit .= "<input type='text' placholder='Бранд...' class='form-control' value='$ss'>";
+                                $edit .= "<input class='i-m' type='text' placholder='Бранд...' class='form-control' value='$ss'>";
                             }
 
                             $edit .= "</div>";
@@ -132,7 +136,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     
                                     <!-- Подвал модальной формы -->
                                     <div class='modal-footer'>
-                                        <button type='button' class='btn btn-success'>Добавить</button>
+                                        <button type='button' class='btn btn-success'>Изменить</button>
                                         <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
                                     </div>
                     
