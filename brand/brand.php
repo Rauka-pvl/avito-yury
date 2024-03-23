@@ -77,7 +77,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         echo $sprav;
 
                         $sp = '';
-                        if (!$sprav) {
+                        if ($sprav) {
                             $sp = 'Пусто!';
                             $edit = "<input type='text' placholder='Бранд...' class='form-control'>";
                         } else {
