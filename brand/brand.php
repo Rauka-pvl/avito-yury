@@ -179,7 +179,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
         let modal = $(e).parent().parent();
         let brand = modal.find('.modal-header').attr('brand');
         let sprav = modal.find('.modal-body > div > div');
-        sprav.each(function => {
+        sprav.each(function () => {
             console.log($(tihs).find('input').val());
         });
     }
