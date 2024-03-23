@@ -58,6 +58,20 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
         .i-m {
             margin: 0.5em 0;
         }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
     <div class="container">
         <div class="center">
@@ -90,7 +104,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                             $edit = "<div>";
                             foreach ($s as $ss) {
                                 $sp .= $ss . "<br>";
-                                $edit .= "<input class='form-control i-m' type='text' placholder='Бранд...' value='$ss'>";
+                                $edit .= "<div><input class='form-control i-m' type='text' placholder='Бранд...' value='$ss'><span class='close'>&times;</span></div>";
                             }
 
                             $edit .= "</div>";
