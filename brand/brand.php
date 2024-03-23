@@ -104,7 +104,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                             $edit = "<div>";
                             foreach ($s as $ss) {
                                 $sp .= $ss . "<br>";
-                                $edit .= "<div class='d-flex'><input class='form-control i-m' type='text' placholder='Бранд...' value='$ss'><span onclick=" . "close(this)" . " class='close'>&times;</span></div>";
+                                $edit .= "<div class='d-flex'><input class='form-control i-m' type='text' placholder='Бранд...' value='$ss'><span onclick='close()' class='close'>&times;</span></div>";
                             }
 
                             $edit .= "</div>";
@@ -165,8 +165,8 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
     </div>
 </body>
 <script>
-    function close(e) {
-        console.log(e.targer.parentElement);
+    function close() {
+        console.log(123);
     }
 </script>
 
