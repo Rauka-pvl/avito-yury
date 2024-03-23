@@ -90,7 +90,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                             $edit = "<div>";
                             foreach ($s as $ss) {
                                 $sp .= $ss . "<br>";
-                                $edit .= "<input class='i-m' type='text' placholder='Бранд...' class='form-control' value='$ss'>";
+                                $edit .= "<input class='form-control i-m' type='text' placholder='Бранд...' value='$ss'>";
                             }
 
                             $edit .= "</div>";
