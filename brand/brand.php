@@ -179,7 +179,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
         let modal = $(e).parent().parent();
         let brand = modal.find('.modal-header').attr('brand');
         let sprav = modal.find('.modal-body > div > div');
-        let sp;
+        let sp = '';
         sprav.each(function () {
             let val = $(this).find('input').val();
             sp += val + ' | ';
