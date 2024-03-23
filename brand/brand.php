@@ -104,12 +104,9 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                             $edit = "<div>";
                             foreach ($s as $keys => $ss) {
                                 $sp .= $ss . "<br>";
-                                if ($keys != 0)
-                                    $edit .= "<div class='d-flex'><input class='form-control i-m' type='text' placholder='Бранд...' value='$ss'><span onclick='closeI(this)' class='close'>&times;</span></div>";
-                                else
-                                    $edit .= "<div class='d-flex'><input class='form-control i-m' type='text' placholder='Бранд...' value='$ss'></div>";
+                                $edit .= "<div class='d-flex'><input class='form-control i-m' type='text' placholder='Бранд...' value='$ss'><span onclick='closeI(this)' class='close'>&times;</span></div>";
                             }
-
+                            $edit .= "<button class='btn btn-primary' type='button' onclick='addI(this)'>Добавить</button>";
                             $edit .= "</div>";
                         }
 
@@ -169,8 +166,10 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
 </body>
 <script>
     function closeI(e) {
-        // console.log(e.parentElement);
         e.parentElement.remove();
+    }
+    function addI(e) {
+        console.log(123);
     }
 </script>
 
