@@ -14,7 +14,7 @@ if ($_POST['brand']) {
 }
 
 if ($_POST['sprav']) {
-    $brand = $_POST['sprav'];
+    $sp = $_POST['sprav'];
 } else {
     echo json_encode('Пустой справочник!');
     http_response_code(500);
@@ -34,7 +34,7 @@ try {
 
         // Привязка параметров и выполнение запроса
         $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
-        $stmt->bindParam(':sprav', $sprav, PDO::PARAM_STR);
+        $stmt->bindParam(':sprav', $sp, PDO::PARAM_STR);
 
         // Выполнение запроса
         if ($stmt->execute()) {
@@ -52,7 +52,7 @@ try {
 
         // Привязка параметров и выполнение запроса
         $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
-        $stmt->bindParam(':srpav', $sprav, PDO::PARAM_STR);
+        $stmt->bindParam(':sprav', $sp, PDO::PARAM_STR);
 
         // Выполнение запроса
         if ($stmt->execute()) {
