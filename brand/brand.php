@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Проверяем, авторизован ли пользователь
+if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+    header('Location: index.php');
+    exit;
+}
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -181,21 +188,36 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
         let sprav = modal.find('.modal-body > div > div');
         let sp = '';
         let IEmpty = false;
-        sprav.each(function (index) {
-            let val = $(this).find('input').val();
-            if (val !== undefined) {
-                if (val != '') {
-                    sp += val;
-                    if (index < sprav.length - 1) {
-                        sp += ' | ';
+        if (sprav.length != 0) {
+            sprav.each(function (index) {
+                let val = $(this).find('input').val();
+                if (val !== undefined) {
+                    if (val != '') {
+                        sp += val;
+                        if (index < sprav.length - 1) {
+                            sp += ' | ';
+                        }
+                    } else IEmpty = true;
+                }
+            });
+            if (!IEmpty) {
+                $.ajax({
+                    type: 'POST',
+                    url: '../db/sprav.php',
+                    data: { brand: brand, sprav: sp },
+                    success: function (response) {
+                        if (response) {
+                            console.log(response);
+                        }
+                    },
+                    error: function (error) {
+                        console.error('Произошла ошибка при отправке данных на сервер:', error);
+                        alert('Произошла ошибка при отправке данных на сервер.', error);
+                        reject('Ошибка при отправке данных на сервер.');
                     }
-                } else IEmpty = true;
-            }
-        });
-        if (!IEmpty) {
-            console.log(1);
-        } else alert('Не оставлять пустых полей!');
-        console.log(sp);
+                });
+            } else alert('Не оставлять пустых полей!');
+        } else alert('Нужен хоть бы 1 справочник!');
     }
 </script>
 
