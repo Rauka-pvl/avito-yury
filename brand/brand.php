@@ -180,15 +180,21 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
         let brand = modal.find('.modal-header').attr('brand');
         let sprav = modal.find('.modal-body > div > div');
         let sp = '';
+        let IEmpty = false;
         sprav.each(function (index) {
             let val = $(this).find('input').val();
             if (val !== undefined) {
-                sp += val;
-                if (index < sprav.length - 1) {
-                    sp += ' | ';
-                }
+                if (val != '') {
+                    sp += val;
+                    if (index < sprav.length - 1) {
+                        sp += ' | ';
+                    }
+                } else IEmpty = true;
             }
         });
+        if (!IEmpty) {
+            console.log(1);
+        } else alert('Не оставлять пустых полей!');
         console.log(sp);
     }
 </script>
