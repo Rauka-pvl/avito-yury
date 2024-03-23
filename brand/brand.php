@@ -104,7 +104,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                             $edit = "<div>";
                             foreach ($s as $keys => $ss) {
                                 $sp .= $ss . "<br>";
-                                if ($keys == 0)
+                                if ($keys != 0)
                                     $edit .= "<div class='d-flex'><input class='form-control i-m' type='text' placholder='Бранд...' value='$ss'><span onclick='closeI(this)' class='close'>&times;</span></div>";
                                 else
                                     $edit .= "<div class='d-flex'><input class='form-control i-m' type='text' placholder='Бранд...' value='$ss'></div>";
