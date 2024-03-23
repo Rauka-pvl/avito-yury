@@ -31,7 +31,7 @@ try {
     var_dump($sprav);
     if ($sprav) {
         $sql1 = 'UPDATE brand_sprav SET sprav = :sprav WHERE brand = :brand';
-        $stmt = $pdo->prepare($sql);
+        $stmt = $pdo->prepare($sql1);
 
         // Привязка параметров и выполнение запроса
         $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
@@ -49,7 +49,7 @@ try {
         }
     } else {
         $sql1 = 'INSERT INTO brand_sprav (brand, sprav) VALUES (:brand, :sprav)';
-        $stmt = $pdo->prepare($sql);
+        $stmt = $pdo->prepare($sql1);
 
         // Привязка параметров и выполнение запроса
         $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
