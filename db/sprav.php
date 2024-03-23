@@ -28,6 +28,7 @@ try {
     $stmt1->bindParam(':brand', $brand, PDO::PARAM_STR);
     $stmt1->execute();
     $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
+    var_dump($sprav);
     if ($sprav) {
         $sql1 = 'UPDATE brand_sprav SET sprav = :sprav WHERE brand = :brand';
         $stmt = $pdo->prepare($sql);
@@ -40,7 +41,7 @@ try {
         if ($stmt->execute()) {
             http_response_code(200);
         } else {
-            array_push($arr, ['error' => "Error updating data in the table: $brand/$sprav"]);
+            array_push($arr, ['error' => "Error updating data in the table: $brand/$sp"]);
             $pdo->commit();
             $pdo->rollBack();
             http_response_code(500);
@@ -58,7 +59,7 @@ try {
         if ($stmt->execute()) {
             http_response_code(200);
         } else {
-            array_push($arr, ['error' => "Error adding data to the table: $brand/$sprav"]);
+            array_push($arr, ['error' => "Error adding data to the table: $brand/$sp"]);
             $pdo->commit();
             $pdo->rollBack();
             http_response_code(500);
