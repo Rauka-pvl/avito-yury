@@ -15,10 +15,25 @@ $json = json_decode($json);
 
 $json = $json[0] ?? $json;
 
+$stmt1 = $pdo->prepare("SELECT sprav FROM brand_sprav WHERE brand = :brand");
+$stmt1->bindParam(':brand', $brand, PDO::PARAM_STR);
+$stmt1->execute();
+$sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
+if ($sprav) {
+    $sp = explode(" | ", $sprav);
+    $key = array_search($json->brand, $sp);
+    if ($key !== false) {
+        $brand = $sp[$key];
+    } else {
+        $brand = $json->brand;
+    }
+} else
+    $brand = $json->brand;
+
 $sql = "SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT(:articul, '%')";
 
 $stmt = $pdo->prepare($sql);
-$stmt->bindParam(':brand', $json->brand, PDO::PARAM_STR);
+$stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
 $stmt->bindParam(':articul', $json->article, PDO::PARAM_STR);
 
 // Выполнение запроса

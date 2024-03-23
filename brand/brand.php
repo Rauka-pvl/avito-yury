@@ -110,7 +110,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                             $edit .= "<button class='btn btn-primary' type='button' onclick='addI(this)'>Добавить</button>";
                             $edit .= "</div>";
                         } else {
-                            $s = explode('|', $sprav);
+                            $s = explode(' | ', $sprav);
                             $edit = "<div>";
                             foreach ($s as $keys => $ss) {
                                 $sp .= $ss . "<br>";
