@@ -142,7 +142,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                                 <div class='modal-content'>
                     
                                     <!-- Заголовок модальной формы -->
-                                    <div class='modal-header'>
+                                    <div class='modal-header' brand='$brand'>
                                         <h4 class='modal-title'>Редактировать: $brand</h4>
                                     </div>
                     
@@ -153,7 +153,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     
                                     <!-- Подвал модальной формы -->
                                     <div class='modal-footer'>
-                                        <button type='button' class='btn btn-success'>Изменить</button>
+                                        <button type='button' class='btn btn-success' onclick='editBrandSprav(this)'>Изменить</button>
                                         <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
                                     </div>
                     
@@ -174,6 +174,9 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
     function addI(e) {
         let input = $("<div class='d-flex'><input class='form-control i-m' type='text' placeholder='Бренд...'><span onclick='closeI(this)' class='close'>&times;</span></div>");
         $(input).insertBefore($(e));
+    }
+    function editBrandSprav(e) {
+        console.log($(e).parent().parent(););
     }
 </script>
 
