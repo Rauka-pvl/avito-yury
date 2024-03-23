@@ -75,20 +75,21 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         $stmt1->bindParam(':brand', $brand, PDO::PARAM_STR);
                         $stmt1->execute();
                         $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
-                        // echo $sprav;
-                    
+
+
                         $sp = '';
                         if (!$sprav) {
                             $sp = 'Пусто!';
                             $edit = "<input type='text' placholder='Бранд...' class='form-control'>";
                         } else {
                             $s = explode('|', $sprav);
-                            var_dump($s);
+                            $edit = "<div>";
                             foreach ($s as $ss) {
                                 $sp .= $ss . "<br>";
+                                $edit .= "<input type='text' placholder='Бранд...' class='form-control' value='$ss'>";
                             }
 
-                            $edit = "<input type='text' placholder='Бранд...' class='form-control'>";
+                            $edit .= "</div>";
                         }
 
                         echo "
