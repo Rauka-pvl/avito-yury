@@ -176,7 +176,8 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
         $(input).insertBefore($(e));
     }
     function editBrandSprav(e) {
-        console.log($(e).parent().parent());
+        console.log($(e).parent().parent().('.modal-header'));
+        console.log($(e).parent().parent().('.modal-header').brand);
     }
 </script>
 
