@@ -180,9 +180,14 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
         let brand = modal.find('.modal-header').attr('brand');
         let sprav = modal.find('.modal-body > div > div');
         let sp = '';
-        sprav.each(function () {
+        sprav.each(function (index) {
             let val = $(this).find('input').val();
-            sp += val + ' | ';
+            if (val !== undefined) {
+                sp += val;
+                if (index < sprav.length - 1) {
+                    sp += ' | ';
+                }
+            }
         });
         console.log(sp);
     }
