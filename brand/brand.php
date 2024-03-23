@@ -86,6 +86,8 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                             foreach ($s as $ss) {
                                 $sp .= $ss . "<br>";
                             }
+
+                            $edit = "<input type='text' placholder='Бранд...' class='form-control'>";
                         }
 
                         echo "
