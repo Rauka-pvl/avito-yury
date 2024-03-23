@@ -180,8 +180,8 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
         let brand = modal.find('.modal-header').attr('brand');
         let sprav = modal.find('.modal-body > div > div');
         sprav.forEach(ee => {
-            console.log($(ee).find('input').attr('value'););
-    });
+            console.log($(ee).find('input').attr('value'));
+        });
     }
 </script>
 
