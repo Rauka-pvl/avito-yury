@@ -208,6 +208,9 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     success: function (response) {
                         if (response = []) {
                             location.reload();
+                        } else {
+                            console.log(response);
+                            reject('Ошибка при отправке данных на сервер. ' + response);
                         }
                     },
                     error: function (error) {
