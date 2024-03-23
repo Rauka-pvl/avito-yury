@@ -170,7 +170,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
     function addI(e) {
         let input = $("<div class='d-flex'><input class='form-control i-m' type='text' placeholder='Бренд...'><span onclick='closeI(this)' class='close'>&times;</span></div>");
-        $(input).insertBefore($(e).parent());
+        $(input).insertBefore($(e));
     }
 </script>
 
