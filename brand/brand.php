@@ -206,8 +206,8 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     url: '../db/sprav.php',
                     data: { brand: brand, sprav: sp },
                     success: function (response) {
-                        if (response) {
-                            console.log(response);
+                        if (response = []) {
+                            location.reload();
                         }
                     },
                     error: function (error) {

@@ -28,7 +28,7 @@ try {
     $stmt1->bindParam(':brand', $brand, PDO::PARAM_STR);
     $stmt1->execute();
     $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
-    var_dump($sprav);
+
     if ($sprav) {
         $sql1 = 'UPDATE brand_sprav SET sprav = :sprav WHERE brand = :brand';
         $stmt = $pdo->prepare($sql1);
