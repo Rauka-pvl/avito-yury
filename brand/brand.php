@@ -98,7 +98,9 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         $sp = '';
                         if (!$sprav) {
                             $sp = 'Пусто!';
-                            $edit = "<input type='text' placeholder='Бренд...' class='form-control'>";
+                            $edit = "<div class='d-flex'><input class='form-control i-m' type='text' placeholder='Бренд...' value='$ss'><span onclick='closeI(this)' class='close'>&times;</span></div>";
+                            $edit .= "<button class='btn btn-primary' type='button' onclick='addI(this)'>Добавить</button>";
+                            $edit .= "</div>";
                         } else {
                             $s = explode('|', $sprav);
                             $edit = "<div>";
