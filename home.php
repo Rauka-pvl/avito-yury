@@ -34,6 +34,7 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
         <div style="display: flex; justify-content: space-evenly;">
             <a href="create/create.php" class="btn btn-primary">Добавление</a>
             <a href="create/createM.php" class="btn btn-primary">Добавление много</a>
+            <a href="brand/brand.php" class="btn btn-primary">Справочник Бранда</a>
             <a href="view.php" class="btn btn-primary">Просмотр</a>
             <button onclick="uppdateXML()" class="btn btn-primary">Обновление XML</button>
             <a href="logout.php" class="btn btn-danger">Выйти</a>
