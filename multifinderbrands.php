@@ -20,7 +20,7 @@ $json = $json[0] ?? $json;
 
 $stmt1 = $pdo->prepare("SELECT sprav, brand FROM brand_sprav WHERE brand = :brand OR sprav LIKE CONCAT('% | ',:sprav,' | %')");
 $stmt1->bindParam(':brand', $json->brand, PDO::PARAM_STR);
-$stmt1->bindParam(':brand', $json->brand, PDO::PARAM_STR);
+$stmt1->bindParam(':sprav', $json->brand, PDO::PARAM_STR);
 $stmt1->execute();
 $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
 if ($sprav) {
