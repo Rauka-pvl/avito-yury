@@ -18,23 +18,15 @@ $json = json_decode($json);
 
 $json = $json[0] ?? $json;
 
-$stmt1 = $pdo->prepare("SELECT sprav, brand FROM brand_sprav WHERE brand = :brand OR sprav LIKE CONCAT('% | ',:sprav,' | %') OR sprav = :sprav");
+$stmt1 = $pdo->prepare("SELECT brand FROM brand_sprav WHERE brand = :brand OR sprav LIKE CONCAT('% | ',:sprav,' | %') OR sprav = :sprav");
 $stmt1->bindParam(':brand', $json->brand, PDO::PARAM_STR);
 $stmt1->bindParam(':sprav', $json->brand, PDO::PARAM_STR);
 $stmt1->execute();
 $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
-// if ($sprav) {
-//     $sp = explode(" | ", $sprav['sprav']);
-//     array_push($sp, $sprav['brand']);
-//     var_dump($sp);
-//     $key = array_search($json->brand, $sp);
-//     if ($key !== false) {
-//         $brand = $sp[$key];
-//     } else {
-//         $brand = $json->brand;
-//     }
-// } else
-//     $brand = $json->brand;
+if ($sprav)
+    $brand = $sprav;
+else
+    $brand = $json->brand;
 
 var_dump($sprav);
 // $sql = "SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT(:articul, '%')";
