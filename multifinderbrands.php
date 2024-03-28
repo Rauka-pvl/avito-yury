@@ -15,12 +15,13 @@ $json = json_decode($json);
 
 $json = $json[0] ?? $json;
 
-$stmt1 = $pdo->prepare("SELECT sprav FROM brand_sprav WHERE brand = :brand");
+$stmt1 = $pdo->prepare("SELECT sprav, brand FROM brand_sprav WHERE brand = :brand");
 $stmt1->bindParam(':brand', $brand, PDO::PARAM_STR);
 $stmt1->execute();
 $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
 if ($sprav) {
-    $sp = explode(" | ", $sprav);
+    $sp = explode(" | ", $sprav['sprav']);
+    array_push($sp, $sprav['brand']);
     $key = array_search($json->brand, $sp);
     if ($key !== false) {
         $brand = $sp[$key];
@@ -43,7 +44,7 @@ $result = $stmt->fetchAll();
 $data = [];
 
 // Проверяем, есть ли результаты
-if (!empty($result)) {
+if (!empty ($result)) {
     foreach ($result as $row) {
         $url = "https://233204.fornex.cloud/uploads/" . strtolower($row['brand']) . "/" . strtolower($row['articul']);
 
@@ -58,7 +59,7 @@ if (!empty($result)) {
         // }
     }
 
-    if (!empty($data)) {
+    if (!empty ($data)) {
         header("Content-Type: application/json");
         echo json_encode($data);
     } else {
