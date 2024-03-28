@@ -22,6 +22,7 @@ $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
 if ($sprav) {
     $sp = explode(" | ", $sprav['sprav']);
     array_push($sp, $sprav['brand']);
+    var_dump($sp);
     $key = array_search($json->brand, $sp);
     if ($key !== false) {
         $brand = $sp[$key];
