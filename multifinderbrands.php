@@ -15,8 +15,9 @@ $json = json_decode($json);
 
 $json = $json[0] ?? $json;
 
-$stmt1 = $pdo->prepare("SELECT sprav, brand FROM brand_sprav WHERE brand = :brand");
-$stmt1->bindParam(':brand', $brand, PDO::PARAM_STR);
+$stmt1 = $pdo->prepare("SELECT sprav, brand FROM brand_sprav WHERE brand = :brand OR sprav LIKE CONCAT('% | ',:sprav,' | %')");
+$stmt1->bindParam(':brand', $json->brand, PDO::PARAM_STR);
+$stmt1->bindParam(':brand', $json->brand, PDO::PARAM_STR);
 $stmt1->execute();
 $sprav = $stmt1->fetch(PDO::FETCH_COLUMN);
 if ($sprav) {
@@ -32,44 +33,44 @@ if ($sprav) {
 } else
     $brand = $json->brand;
 
-// $sql = "SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT(:articul, '%')";
+$sql = "SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT(:articul, '%')";
 
-// $stmt = $pdo->prepare($sql);
-// $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
-// $stmt->bindParam(':articul', $json->article, PDO::PARAM_STR);
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
+$stmt->bindParam(':articul', $json->article, PDO::PARAM_STR);
 
-// // Выполнение запроса
-// $stmt->execute();
-// $result = $stmt->fetchAll();
+// Выполнение запроса
+$stmt->execute();
+$result = $stmt->fetchAll();
 
-// $data = [];
+$data = [];
 
-// // Проверяем, есть ли результаты
-// if (!empty ($result)) {
-//     foreach ($result as $row) {
-//         $url = "https://233204.fornex.cloud/uploads/" . strtolower($row['brand']) . "/" . strtolower($row['articul']);
+// Проверяем, есть ли результаты
+if (!empty ($result)) {
+    foreach ($result as $row) {
+        $url = "https://233204.fornex.cloud/uploads/" . strtolower($row['brand']) . "/" . strtolower($row['articul']);
 
-//         // Проверяем, существует ли изображение по указанной ссылке
-//         $imageInfo = getimagesize($url);
-//         if ($imageInfo !== false) {
-//             array_push($data, ["url" => $url]);
-//         }
-//         // else {
-//         //     var_dump($imageInfo !== false);
-//         //     var_dump($url);
-//         // }
-//     }
+        // Проверяем, существует ли изображение по указанной ссылке
+        $imageInfo = getimagesize($url);
+        if ($imageInfo !== false) {
+            array_push($data, ["url" => $url]);
+        }
+        // else {
+        //     var_dump($imageInfo !== false);
+        //     var_dump($url);
+        // }
+    }
 
-//     if (!empty ($data)) {
-//         header("Content-Type: application/json");
-//         echo json_encode($data);
-//     } else {
-//         // Если результатов нет, возвращаем 404 Not Found
-//         header("HTTP/1.1 404 Not Found");
-//         echo json_encode(["error" => "Изображение не найдено"]);
-//     }
-// } else {
-//     // Если результатов нет, возвращаем 404 Not Found
-//     header("HTTP/1.1 404 Not Found");
-//     echo json_encode(["error" => "Изображение не найдено!"]);
-// }
+    if (!empty ($data)) {
+        header("Content-Type: application/json");
+        echo json_encode($data);
+    } else {
+        // Если результатов нет, возвращаем 404 Not Found
+        header("HTTP/1.1 404 Not Found");
+        echo json_encode(["error" => "Изображение не найдено"]);
+    }
+} else {
+    // Если результатов нет, возвращаем 404 Not Found
+    header("HTTP/1.1 404 Not Found");
+    echo json_encode(["error" => "Изображение не найдено!"]);
+}
