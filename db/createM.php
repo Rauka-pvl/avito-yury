@@ -22,7 +22,8 @@ $pdo->beginTransaction();
 try {
     foreach ($fileName as $key => $d) {
         $brand = trim(strtolower($brands[$key]), " ");
-        $articul = trim(strtolower($d));
+        // $articul = trim(strtolower($d));
+        $articul = trim(strtolower(str_replace(['-', '_'], '', $d)));
 
         $uploadDirectory = "../uploads/" . $brand . "/";
         if (!file_exists($uploadDirectory)) {

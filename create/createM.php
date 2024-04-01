@@ -185,7 +185,8 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
                 let inputB = div.querySelector('input[placeholder="Бренд"]');
                 let brand = inputB.value.trim();
 
-                if (inputA.value.trim() === '' || brand === '' || inputA.value.includes('-') || inputA.value.includes('_')) {
+                // || inputA.value.includes('-') || inputA.value.includes('_')
+                if (inputA.value.trim() === '' || brand === '') {
                     allInputsFilled = false;
                 }
 
@@ -221,7 +222,8 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
                 // Запуск функции отправки данных
                 sendFormDataWithDelay();
             } else {
-                alert('Пожалуйста, заполните все инпуты перед добавлением.\nТак же без "-" и "_"');
+                // \nТак же без "-" и "_".
+                alert('Пожалуйста, заполните все инпуты перед добавлением.');
             }
         }
 

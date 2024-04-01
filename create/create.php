@@ -53,11 +53,11 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
             }
 
             // Проверка на наличие символов "-" или "_"
-            if (articulValue.includes('-') || articulValue.includes('_')) {
-                event.preventDefault(); // Отменяем отправку формы
-                alert('Артикул не должен содержать символы "-" или "_".');
-                return;
-            }
+            // if (articulValue.includes('-') || articulValue.includes('_')) {
+            //     event.preventDefault(); // Отменяем отправку формы
+            //     alert('Артикул не должен содержать символы "-" или "_".');
+            //     return;
+            // }
 
             // Если все проверки пройдены, форма будет отправлена
         });
