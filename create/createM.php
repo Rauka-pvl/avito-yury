@@ -221,7 +221,7 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
                 // Запуск функции отправки данных
                 sendFormDataWithDelay();
             } else {
-                alert('Пожалуйста, заполните все инпуты перед добавлением.');
+                alert('Пожалуйста, заполните все инпуты перед добавлением.<br>Так же без "-" и "_"');
             }
         }
 
