@@ -2,7 +2,7 @@
 session_start();
 
 // Проверяем, авторизован ли пользователь
-if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
     header('Location: index.php');
     exit;
 }
@@ -39,5 +39,29 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
         </form>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('form').addEventListener('submit', function (event) {
+            let articulInput = document.querySelector('input[name="articul"]');
+            let articulValue = articulInput.value.trim();
+
+            // Проверка на пустое значение
+            if (articulValue === '') {
+                event.preventDefault(); // Отменяем отправку формы
+                alert('Пожалуйста, введите артикул.');
+                return;
+            }
+
+            // Проверка на наличие символов "-" или "_"
+            if (articulValue.includes('-') || articulValue.includes('_')) {
+                event.preventDefault(); // Отменяем отправку формы
+                alert('Артикул не должен содержать символы "-" или "_".');
+                return;
+            }
+
+            // Если все проверки пройдены, форма будет отправлена
+        });
+    });
+</script>
 
 </html>
