@@ -4,7 +4,7 @@ ini_set('post_max_size', '1024M');
 session_start();
 
 // Проверяем, авторизован ли пользователь
-if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
     header('Location: index.php');
     exit;
 }
@@ -185,7 +185,7 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
                 let inputB = div.querySelector('input[placeholder="Бренд"]');
                 let brand = inputB.value.trim();
 
-                if (inputA.value.trim() === '' || brand === '') {
+                if (inputA.value.trim() === '' || brand === '' || inputA.value.includes('-') || inputA.value.includes('_')) {
                     allInputsFilled = false;
                 }
 
