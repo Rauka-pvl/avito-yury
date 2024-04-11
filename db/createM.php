@@ -28,7 +28,7 @@ try {
         for ($i = 0; $format[$i] == count($format) - 1; $i++) {
             $articuls .= $format[$i];
         }
-        $articul = trim(strtolower(preg_replace('/(?<=\d)([_-]+)(?=\d+\.[^.]+$)|\s+/', '', $articuls)));
+        $articul = trim(strtolower(str_replace(['-', '_', ' '], '', $articuls)));
         $articul .= $format[count($format) - 1];
         $uploadDirectory = "../uploads/" . $brand . "/";
         if (!file_exists($uploadDirectory)) {
