@@ -23,7 +23,7 @@ try {
     foreach ($fileName as $key => $d) {
         $brand = trim(strtolower($brands[$key]), " ");
         // $articul = trim(strtolower($d));
-        $articul = trim(strtolower(preg_replace('/[-_\s]+(?!.*_\d+\.[^.]+$)/', '', $d)));
+        $articul = trim(strtolower(preg_replace('/(?<=\S)[-_]+(?!.*_\d+\.[^.]+$)|\s+/', '', $d)));
 
         $uploadDirectory = "../uploads/" . $brand . "/";
         if (!file_exists($uploadDirectory)) {

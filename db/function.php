@@ -21,7 +21,7 @@ foreach ($_FILES['images']['name'] as $key => $image) {
 
     $filename = basename($_FILES['images']['name'][$key]);
     $path = pathinfo($_FILES['images']['name'][$key])['extension'];
-    $art = trim(strtolower(preg_replace('/[-_\s]+(?!.*_\d+\.[^.]+$)/', '', $_POST['articul'])));
+    $art = trim(strtolower(preg_replace('/(?<=\S)[-_]+(?!.*_\d+\.[^.]+$)|\s+/', '', $_POST['articul'])));
     if ($key != 0) {
         $i++;
         $name = $art . "_" . $i . "." . $path;
