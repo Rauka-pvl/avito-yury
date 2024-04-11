@@ -23,13 +23,7 @@ try {
     foreach ($fileName as $key => $d) {
         $brand = trim(strtolower($brands[$key]), " ");
         // $articul = trim(strtolower($d));
-        $format = explode('.', $d);
-        $articuls = '';
-        for ($i = 0; $format[$i] == count($format) - 1; $i++) {
-            $articuls .= $format[$i];
-        }
-        $articul = trim(strtolower(str_replace(['-', '_', ' '], '', $articuls)));
-        $articul .= $format[count($format) - 1];
+        $articul = trim(strtolower(str_replace(['-', '_', ' '], '', $d)));
         $uploadDirectory = "../uploads/" . $brand . "/";
         if (!file_exists($uploadDirectory)) {
             mkdir($uploadDirectory, 0777, true);
