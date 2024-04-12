@@ -280,6 +280,7 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
             let input = $('#all_brand').val();
             if (input) {
                 let brand_i = $('#brand');
+                console.log(brand_i);
                 $.each(brand_i, function (i, e) {
                     console.log($(e))
                     $(e).val(input);
