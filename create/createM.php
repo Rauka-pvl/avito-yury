@@ -117,7 +117,7 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
 
                     let inputB = document.createElement('input');
                     inputB.type = 'text';
-                    inputB.classList.add('form-control');
+                    inputB.classList.add('form-control brand');
                     inputB.placeholder = 'Бренд';
                     inputB.style.maxWidth = '400px';
                     inputB.id = 'brand';
@@ -279,7 +279,7 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
         function all_brand_name() {
             let input = $('#all_brand').val();
             if (input) {
-                let brand_i = $('#brand');
+                let brand_i = $('.brand');
                 console.log(brand_i);
                 $.each(brand_i, function (i, e) {
                     console.log($(e))
