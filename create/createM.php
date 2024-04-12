@@ -58,6 +58,10 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
         <div class="text-center">
             <button onclick="processFiles()" class="btn btn-success" style="margin: 0.5em auto;">Обработать
                 файлы</button>
+            <div>
+                <input type="text" class="form-control" id="all_brand" placeholder="Названия бренда для всех!">
+                <button class="btn btn-success" onclick="all_brand_name()">Добавить название бренда</button>
+            </div>
         </div>
 
         <div id="files" style="margin: 0.5em auto;">
@@ -269,6 +273,18 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
         // Функция для создания задержки
         function delay(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function all_brand_name() {
+            let input = $('#all_brand').val();
+            if (input) {
+                let brand_i = $('#brand');
+                $.each(brand_i, function (i, e) {
+                    $(e).val(input);
+                })
+            } else {
+                alert('Поле не должно быть пустым!');
+            }
         }
     </script>
 
