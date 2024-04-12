@@ -60,7 +60,8 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
                 файлы</button>
             <div>
                 <input type="text" class="form-control" id="all_brand" placeholder="Названия бренда для всех!">
-                <button class="btn btn-success" onclick="all_brand_name()">Добавить название бренда</button>
+                <button class="btn btn-success" onclick="all_brand_name()" style="margin: 0.5em auto;">Добавить название
+                    бренда</button>
             </div>
         </div>
 
@@ -280,6 +281,7 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
             if (input) {
                 let brand_i = $('#brand');
                 $.each(brand_i, function (i, e) {
+                    console.log($(e))
                     $(e).val(input);
                 })
             } else {
