@@ -117,7 +117,8 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
 
                     let inputB = document.createElement('input');
                     inputB.type = 'text';
-                    inputB.classList.add('form-control brand');
+                    inputB.classList.add('form-control');
+                    inputB.classList.add('brand');
                     inputB.placeholder = 'Бренд';
                     inputB.style.maxWidth = '400px';
                     inputB.id = 'brand';
