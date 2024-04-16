@@ -127,7 +127,7 @@ foreach ($result as $row) {
             <table id="myTable">
                 <thead>
                     <tr>
-                        <th><input type='checkbox' id='checkAll' class='selectRow'></th>
+                        <th><input type='checkbox' id='checkAll'></th>
                         <th>Бранд</th>
                         <th>Артикул</th>
                         <th>Просмотр</th>
