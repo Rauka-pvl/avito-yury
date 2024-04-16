@@ -217,6 +217,7 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
                     for (let i = 0; i < formDataArray.length; i += 10) {
                         // Отправка данных для каждой группы с интервалом
                         let formDataGroup = formDataArray.slice(i, i + 10);
+                        console.log(formDataGroup);
                         await sendFormDataToServer(formDataGroup);
                         await delay(delayInterval);
                     }
@@ -246,9 +247,6 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
                 formData.append('brand[]', data.brand);
                 formData.append('photoSrc[]', data.photoSrc);
             });
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ', ' + pair[1]);
-            }
 
             return new Promise((resolve, reject) => {
                 $.ajax({
