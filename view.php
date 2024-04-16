@@ -235,6 +235,11 @@ foreach ($result as $row) {
                 elementsWithIdCheck.forEach((check, i) => {
                     check.checked = true;
                 });
+            } else {
+                let elementsWithIdCheck = document.querySelectorAll('#check');
+                elementsWithIdCheck.forEach((check, i) => {
+                    check.checked = false;
+                });
             }
         });
         function delete_selected() {
