@@ -182,7 +182,7 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
             // let formData = new FormData();   
             let allInputsFilled = true;
 
-            const formDataArray = [];
+            let formDataArray = [];
             const delayInterval = 1000;
 
             divs.forEach((div, fileIndex) => {
