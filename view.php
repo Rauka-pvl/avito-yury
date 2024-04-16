@@ -232,7 +232,9 @@ foreach ($result as $row) {
         $('#checkAll').change(function () {
             if ($(this).is(':checked')) {
                 let elementsWithIdCheck = document.querySelectorAll('#check');
-                console.log(elementsWithIdCheck);
+                elementsWithIdCheck.forEach(check, i => {
+                    check.checked = true;
+                });
             }
         });
         function delete_selected() {
