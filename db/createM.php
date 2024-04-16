@@ -39,9 +39,9 @@ try {
         if (file_exists($uploadPath)) {
             unlink($uploadPath);
             file_put_contents($uploadPath, $binaryData);
-            echo 1;
+            echo 1 . '_' . $key;
         } else if (file_put_contents($uploadPath, $binaryData) !== false) {
-            echo 2;
+            echo 2 . '_' . $key;
             $sql = 'INSERT INTO images (brand, articul) VALUES (:brand, :articul) ON DUPLICATE KEY UPDATE articul = :articul';
             $stmt = $pdo->prepare($sql);
 
@@ -56,7 +56,7 @@ try {
                 array_push($arr, ['error' => "Error adding data to the table: $brand/$articul"]);
             }
         } else {
-            echo 3;
+            echo 3 . '_' . $key;
             array_push($arr, ['error' => "Failed to save file: $brand/$articul"]);
         }
     }
@@ -64,7 +64,7 @@ try {
     // Фиксация изменений
     $pdo->commit();
 } catch (Exception $e) {
-    echo 4;
+    echo 4 . '_' . $key;
     // Откат изменений в случае ошибки
     $pdo->rollBack();
     array_push($arr, ['error' => "Error processing files: " . $e->getMessage()]);
