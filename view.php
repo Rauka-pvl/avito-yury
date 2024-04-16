@@ -247,7 +247,7 @@ foreach ($result as $row) {
             var array = new Array();
 
             for (var i = 0; i < checkBox.length; i++) {
-                if (checkBox[i].value)
+                if (checkBox[i].value != 'on')
                     array.push(checkBox[i].value);
             }
 
