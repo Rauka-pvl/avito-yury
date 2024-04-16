@@ -127,7 +127,7 @@ foreach ($result as $row) {
             <table id="myTable">
                 <thead>
                     <tr>
-                        <th><input type='checkbox' id='checkAll'></th>
+                        <th><input type='checkbox' id='checkAll' class='selectRow'></th>
                         <th>Бранд</th>
                         <th>Артикул</th>
                         <th>Просмотр</th>
@@ -247,7 +247,8 @@ foreach ($result as $row) {
             var array = new Array();
 
             for (var i = 0; i < checkBox.length; i++) {
-                array.push(checkBox[i].value);
+                if (checkBox[i].value)
+                    array.push(checkBox[i].value);
             }
 
             $.ajax({
