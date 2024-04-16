@@ -39,6 +39,7 @@ try {
         if (file_exists($uploadPath)) {
             unlink($uploadPath);
             file_put_contents($uploadPath, $binaryData);
+            array_push($arr, ['testsss' => $uploadPath]);
         } else if (file_put_contents($uploadPath, $binaryData) !== false) {
             $sql = 'INSERT INTO images (brand, articul) VALUES (:brand, :articul) ON DUPLICATE KEY UPDATE articul = :articul';
             $stmt = $pdo->prepare($sql);
