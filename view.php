@@ -231,7 +231,7 @@ foreach ($result as $row) {
     <script>
         $('#checkAll').change(function () {
             if ($(this).is(':checked')) {
-                $('#check').not(this).prop('checked', false);
+                console.log($('#check'));
             }
         });
         function delete_selected() {
