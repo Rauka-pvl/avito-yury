@@ -250,28 +250,30 @@ foreach ($result as $row) {
                 if (checkBox[i].value != 'on')
                     array.push(checkBox[i].value);
             }
-
-            $.ajax({
-                type: 'POST',
-                url: 'db/deleteS.php',
-                data: { ids: array },
-                success: function (response) {
-                    if (response == '[]') {
-                        window.location = "bool/delete/trueDelete.php";
-                    } else {
-                        response = JSON.parse(response);
-                        var text = "Файлы: \n";
-                        for (var i = 0; i < response.length; i++) {
-                            text = text + response[i] + "\n";
+            if (array.length > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'db/deleteS.php',
+                    data: { ids: array },
+                    success: function (response) {
+                        if (response == '[]') {
+                            window.location = "bool/delete/trueDelete.php";
+                        } else {
+                            response = JSON.parse(response);
+                            var text = "Файлы: \n";
+                            for (var i = 0; i < response.length; i++) {
+                                text = text + response[i] + "\n";
+                            }
+                            text = text + "\n Не получилось удалить!";
+                            alert(text);
                         }
-                        text = text + "\n Не получилось удалить!";
-                        alert(text);
+                    },
+                    error: function (error) {
+                        console.error('Ошибка: ', error);
                     }
-                },
-                error: function (error) {
-                    console.error('Ошибка: ', error);
-                }
-            });
+                });
+            }
+
         }
 
         $(document).on('change', '.selectRow', function () {
