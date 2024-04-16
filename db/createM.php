@@ -39,9 +39,9 @@ try {
         if (file_exists($uploadPath)) {
             unlink($uploadPath);
             file_put_contents($uploadPath, $binaryData);
-            echo 1 . '_' . $key;
+            $arr[$key] = 1 . '_' . $key;
         } else if (file_put_contents($uploadPath, $binaryData) !== false) {
-            echo 2 . '_' . $key;
+            $arr[$key] = 2 . '_' . $key;
             $sql = 'INSERT INTO images (brand, articul) VALUES (:brand, :articul) ON DUPLICATE KEY UPDATE articul = :articul';
             $stmt = $pdo->prepare($sql);
 
@@ -53,11 +53,13 @@ try {
             if ($stmt->execute()) {
                 http_response_code(200);
             } else {
-                array_push($arr, ['error' => "Error adding data to the table: $brand/$articul"]);
+                // array_push($arr, ['error' => "Error adding data to the table: $brand/$articul"]);
+                $arr[$key] = ['error' => "Error adding data to the table: $brand/$articul"];
             }
         } else {
-            echo 3 . '_' . $key;
-            array_push($arr, ['error' => "Failed to save file: $brand/$articul"]);
+            $arr[$key] = 3 . '_' . $key;
+            $arr[$key] = ['error' => "Failed to save file: $brand/$articul"];
+            // array_push($arr, ['error' => "Failed to save file: $brand/$articul"]);
         }
     }
 
