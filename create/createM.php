@@ -196,7 +196,7 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
                     allInputsFilled = false;
                 }
 
-                let modal = document.getElementById('myModal' + fileIndex);
+                let modal = div.querySelector('.modal');
                 if (modal) {
                     let modalImage = modal.querySelector('#modalImage');
                     let photoSrc = modalImage ? modalImage.src : '';
