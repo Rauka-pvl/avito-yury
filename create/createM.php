@@ -246,7 +246,7 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
                 formData.append('brand[]', data.brand);
                 formData.append('photoSrc[]', data.photoSrc);
             });
-            console.log(formData);
+            console.log(formData.length);
 
             return new Promise((resolve, reject) => {
                 $.ajax({
