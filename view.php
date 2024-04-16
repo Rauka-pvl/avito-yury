@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
-if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
     header('Location: index.php');
     exit;
 }
@@ -106,12 +106,12 @@ foreach ($result as $row) {
                     <div style=" margin: 0 0.5em;">
                         <label for="sort">Сортировка по Бренду</label>
                         <select name="sort" class="form-control" id="sort">
-                            <option value="ASC" <? if (isset($_GET['sort'])) {
+                            <option value="ASC" <? if (isset ($_GET['sort'])) {
                                 if ($_GET['sort'] == 'ASC')
                                     echo 'selected';
                             } ?>>По возрастанию
                             </option>
-                            <option value="DESC" <? if (isset($_GET['sort'])) {
+                            <option value="DESC" <? if (isset ($_GET['sort'])) {
                                 if ($_GET['sort'] == 'DESC')
                                     echo 'selected';
                             } ?>>По убыванию</option>
@@ -127,7 +127,7 @@ foreach ($result as $row) {
             <table id="myTable">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th><input type='checkbox' id='checkAll' class='selectRow'></th>
                         <th>Бранд</th>
                         <th>Артикул</th>
                         <th>Просмотр</th>
@@ -229,6 +229,11 @@ foreach ($result as $row) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
     <script>
+        $('#checkAll').change(function () {
+            if ($(this).is(':checked')) {
+                $('#check').not(this).prop('checked', false);
+            }
+        });
         function delete_selected() {
             var checkBox = $('.selectRow:checked');
             var array = new Array();
