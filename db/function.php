@@ -2,7 +2,7 @@
 session_start();
 
 // Проверяем, авторизован ли пользователь
-if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
     header('Location: ../index.php');
     exit;
 }
@@ -21,7 +21,9 @@ foreach ($_FILES['images']['name'] as $key => $image) {
 
     $filename = basename($_FILES['images']['name'][$key]);
     $path = pathinfo($_FILES['images']['name'][$key])['extension'];
-    $art = trim(strtolower(preg_replace('/(?<=\S)[-_]+(?!.*_\d+\.[^.]+$)|\s+/', '', $_POST['articul'])));
+    $art = preg_replace('/[-_\s]+/', '', $_POST['articul']);
+    $art = preg_replace('/\.(?=.*\.)/', '', $articul);
+    // $art = trim(strtolower(preg_replace('/(?<=\S)[-_]+(?!.*_\d+\.[^.]+$)|\s+/', '', $_POST['articul'])));
     if ($key != 0) {
         $i++;
         $name = $art . "_" . $i . "." . $path;
