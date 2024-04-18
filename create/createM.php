@@ -4,7 +4,7 @@ ini_set('post_max_size', '1024M');
 session_start();
 
 // Проверяем, авторизован ли пользователь
-if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
     header('Location: index.php');
     exit;
 }
@@ -222,7 +222,7 @@ if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) 
                     }
                     setTimeout(function () {
                         window.location = "../view.php";
-                    }, 5000);
+                    }, 500);
                 }
 
                 // Запуск функции отправки данных
