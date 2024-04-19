@@ -108,6 +108,7 @@ foreach ($result as $row) {
         }
 
         .page-active {
+            color: #fff;
             background-color: #007bff;
         }
     </style>
@@ -250,16 +251,21 @@ foreach ($result as $row) {
                 </tbody>
             </table>
             <div class="pagination">
-                <a href="?page=1" class="pagination-link <? if ($page == 1)
-                    echo 'page-active' ?>">1</a>
-                    <a href="?page=2" class="pagination-link <? if ($page == 2)
-                    echo 'page-active' ?>">2</a>
-                    <a href="?page=3" class="pagination-link <? if ($page == 3)
-                    echo 'page-active' ?>">3</a>
-                    <a href="?page=4" class="pagination-link <? if ($page == 4)
-                    echo 'page-active' ?>">4</a>
-                    <a href="?page=5" class="pagination-link <? if ($page == 5)
-                    echo 'page-active' ?>">5</a>
+                <a href="?page=1&sort=<?= $_GET['sort'] . "&search=" . $_GET['search'] . '&searchA=' . $_GET['searchA'] ?>"
+                    class="pagination-link <? if ($page == 1)
+                        echo 'page-active' ?>">1</a>
+                    <a href="?page=2&sort=<?= $_GET['sort'] . "&search=" . $_GET['search'] . '&searchA=' . $_GET['searchA'] ?>"
+                    class="pagination-link <? if ($page == 2)
+                        echo 'page-active' ?>">2</a>
+                    <a href="?page=3&sort=<?= $_GET['sort'] . "&search=" . $_GET['search'] . '&searchA=' . $_GET['searchA'] ?>"
+                    class="pagination-link <? if ($page == 3)
+                        echo 'page-active' ?>">3</a>
+                    <a href="?page=4&sort=<?= $_GET['sort'] . "&search=" . $_GET['search'] . '&searchA=' . $_GET['searchA'] ?>"
+                    class="pagination-link <? if ($page == 4)
+                        echo 'page-active' ?>">4</a>
+                    <a href="?page=5&sort=<?= $_GET['sort'] . "&search=" . $_GET['search'] . '&searchA=' . $_GET['searchA'] ?>"
+                    class="pagination-link <? if ($page == 5)
+                        echo 'page-active' ?>">5</a>
                 </div>
             </div>
         </div>
@@ -325,54 +331,54 @@ foreach ($result as $row) {
                 }
             });
 
-                                                                    // function sortTable(columnIndex) {
-                                                                    //     var table, rows, switching, i, x, y, shouldSwitch;
-                                                                    //     table = document.getElementById("myTable");
-                                                                    //     switching = true;
+                                                                                                    // function sortTable(columnIndex) {
+                                                                                                    //     var table, rows, switching, i, x, y, shouldSwitch;
+                                                                                                    //     table = document.getElementById("myTable");
+                                                                                                    //     switching = true;
 
-                                                                    //     while (switching) {
-                                                                    //         switching = false;
-                                                                    //         rows = table.rows;
+                                                                                                    //     while (switching) {
+                                                                                                    //         switching = false;
+                                                                                                    //         rows = table.rows;
 
-                                                                    //         for (i = 1; i < rows.length - 1; i++) {
-                                                                    //             shouldSwitch = false;
-                                                                    //             x = rows[i].getElementsByTagName("td")[columnIndex];
-                                                                    //             y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+                                                                                                    //         for (i = 1; i < rows.length - 1; i++) {
+                                                                                                    //             shouldSwitch = false;
+                                                                                                    //             x = rows[i].getElementsByTagName("td")[columnIndex];
+                                                                                                    //             y = rows[i + 1].getElementsByTagName("td")[columnIndex];
 
-                                                                    //             if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                                                                    //                 shouldSwitch = true;
-                                                                    //                 break;
-                                                                    //             }
-                                                                    //         }
+                                                                                                    //             if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                                                                                    //                 shouldSwitch = true;
+                                                                                                    //                 break;
+                                                                                                    //             }
+                                                                                                    //         }
 
-                                                                    //         if (shouldSwitch) {
-                                                                    //             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                                                                    //             switching = true;
-                                                                    //         }
-                                                                    //     }
-                                                                    // }
+                                                                                                    //         if (shouldSwitch) {
+                                                                                                    //             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                                                                                    //             switching = true;
+                                                                                                    //         }
+                                                                                                    //     }
+                                                                                                    // }
 
-                                                                    // function searchTable() {
-                                                                    //     var input, filter, table, tr, td, i, txtValue;
-                                                                    //     input = document.getElementById("searchInput");
-                                                                    //     filter = input.value.toUpperCase();
-                                                                    //     table = document.getElementById("myTable");
-                                                                    //     tr = table.getElementsByTagName("tr");
+                                                                                                    // function searchTable() {
+                                                                                                    //     var input, filter, table, tr, td, i, txtValue;
+                                                                                                    //     input = document.getElementById("searchInput");
+                                                                                                    //     filter = input.value.toUpperCase();
+                                                                                                    //     table = document.getElementById("myTable");
+                                                                                                    //     tr = table.getElementsByTagName("tr");
 
-                                                                    //     for (i = 0; i < tr.length; i++) {
-                                                                    //         td = tr[i].getElementsByTagName("td")[0]; // Поиск по второй колонке
+                                                                                                    //     for (i = 0; i < tr.length; i++) {
+                                                                                                    //         td = tr[i].getElementsByTagName("td")[0]; // Поиск по второй колонке
 
-                                                                    //         if (td) {
-                                                                    //             txtValue = 'HP' || td.innerText;
+                                                                                                    //         if (td) {
+                                                                                                    //             txtValue = 'HP' || td.innerText;
 
-                                                                    //             if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                                                    //                 tr[i].style.display = "";
-                                                                    //             } else {
-                                                                    //                 tr[i].style.display = "none";
-                                                                    //             }
-                                                                    //         }
-                                                                    //     }
-                                                                    // }
+                                                                                                    //             if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                                                                                    //                 tr[i].style.display = "";
+                                                                                                    //             } else {
+                                                                                                    //                 tr[i].style.display = "none";
+                                                                                                    //             }
+                                                                                                    //         }
+                                                                                                    //     }
+                                                                                                    // }
         </script>
     </body>
 
