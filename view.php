@@ -95,8 +95,9 @@ foreach ($result as $row) {
 
         .pagination-link {
             padding: 5px 10px;
-            background-color: #007bff;
-            color: #fff;
+            /* background-color: #007bff; */
+            /* color: #fff; */
+            color: black;
             text-decoration: none;
             border-radius: 5px;
             margin: 0 5px;
@@ -104,6 +105,10 @@ foreach ($result as $row) {
 
         .pagination-link:hover {
             background-color: #0056b3;
+        }
+
+        .page-active {
+            background-color: #007bff;
         }
     </style>
     <div class="container">
@@ -245,125 +250,130 @@ foreach ($result as $row) {
                 </tbody>
             </table>
             <div class="pagination">
-                <a href="#" class="pagination-link">1</a>
-                <a href="#" class="pagination-link">2</a>
-                <a href="#" class="pagination-link">3</a>
-                <a href="#" class="pagination-link">4</a>
-                <a href="#" class="pagination-link">5</a>
+                <a href="?page=1" class="pagination-link <? if ($page == 1)
+                    echo 'page-active' ?>">1</a>
+                    <a href="?page=2" class="pagination-link <? if ($page == 2)
+                    echo 'page-active' ?>">2</a>
+                    <a href="?page=3" class="pagination-link <? if ($page == 3)
+                    echo 'page-active' ?>">3</a>
+                    <a href="?page=4" class="pagination-link <? if ($page == 4)
+                    echo 'page-active' ?>">4</a>
+                    <a href="?page=5" class="pagination-link <? if ($page == 5)
+                    echo 'page-active' ?>">5</a>
+                </div>
             </div>
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-        $('#checkAll').change(function () {
-            if ($(this).is(':checked')) {
-                let elementsWithIdCheck = document.querySelectorAll('#check');
-                elementsWithIdCheck.forEach((check, i) => {
-                    check.checked = true;
-                });
-            } else {
-                let elementsWithIdCheck = document.querySelectorAll('#check');
-                elementsWithIdCheck.forEach((check, i) => {
-                    check.checked = false;
-                });
-            }
-        });
-        function delete_selected() {
-            var checkBox = $('.selectRow:checked');
-            var array = new Array();
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+        <script>
+            $('#checkAll').change(function () {
+                if ($(this).is(':checked')) {
+                    let elementsWithIdCheck = document.querySelectorAll('#check');
+                    elementsWithIdCheck.forEach((check, i) => {
+                        check.checked = true;
+                    });
+                } else {
+                    let elementsWithIdCheck = document.querySelectorAll('#check');
+                    elementsWithIdCheck.forEach((check, i) => {
+                        check.checked = false;
+                    });
+                }
+            });
+            function delete_selected() {
+                var checkBox = $('.selectRow:checked');
+                var array = new Array();
 
-            for (var i = 0; i < checkBox.length; i++) {
-                if (checkBox[i].value != 'on')
-                    array.push(checkBox[i].value);
-            }
-            if (array.length > 0) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'db/deleteS.php',
-                    data: { ids: array },
-                    success: function (response) {
-                        if (response == '[]') {
-                            window.location = "bool/delete/trueDelete.php";
-                        } else {
-                            response = JSON.parse(response);
-                            var text = "Файлы: \n";
-                            for (var i = 0; i < response.length; i++) {
-                                text = text + response[i] + "\n";
+                for (var i = 0; i < checkBox.length; i++) {
+                    if (checkBox[i].value != 'on')
+                        array.push(checkBox[i].value);
+                }
+                if (array.length > 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'db/deleteS.php',
+                        data: { ids: array },
+                        success: function (response) {
+                            if (response == '[]') {
+                                window.location = "bool/delete/trueDelete.php";
+                            } else {
+                                response = JSON.parse(response);
+                                var text = "Файлы: \n";
+                                for (var i = 0; i < response.length; i++) {
+                                    text = text + response[i] + "\n";
+                                }
+                                text = text + "\n Не получилось удалить!";
+                                alert(text);
                             }
-                            text = text + "\n Не получилось удалить!";
-                            alert(text);
+                        },
+                        error: function (error) {
+                            console.error('Ошибка: ', error);
                         }
-                    },
-                    error: function (error) {
-                        console.error('Ошибка: ', error);
-                    }
-                });
+                    });
+                }
+
             }
 
-        }
+            $(document).on('change', '.selectRow', function () {
+                var selectedRows = $('.selectRow:checked').length;
+                var btn_d = $('#delete_selected');
 
-        $(document).on('change', '.selectRow', function () {
-            var selectedRows = $('.selectRow:checked').length;
-            var btn_d = $('#delete_selected');
+                if (selectedRows > 0) {
+                    btn_d.css('display', 'block');
+                } else {
+                    btn_d.css('display', 'none');
+                }
+            });
 
-            if (selectedRows > 0) {
-                btn_d.css('display', 'block');
-            } else {
-                btn_d.css('display', 'none');
-            }
-        });
+                                                                    // function sortTable(columnIndex) {
+                                                                    //     var table, rows, switching, i, x, y, shouldSwitch;
+                                                                    //     table = document.getElementById("myTable");
+                                                                    //     switching = true;
 
-        // function sortTable(columnIndex) {
-        //     var table, rows, switching, i, x, y, shouldSwitch;
-        //     table = document.getElementById("myTable");
-        //     switching = true;
+                                                                    //     while (switching) {
+                                                                    //         switching = false;
+                                                                    //         rows = table.rows;
 
-        //     while (switching) {
-        //         switching = false;
-        //         rows = table.rows;
+                                                                    //         for (i = 1; i < rows.length - 1; i++) {
+                                                                    //             shouldSwitch = false;
+                                                                    //             x = rows[i].getElementsByTagName("td")[columnIndex];
+                                                                    //             y = rows[i + 1].getElementsByTagName("td")[columnIndex];
 
-        //         for (i = 1; i < rows.length - 1; i++) {
-        //             shouldSwitch = false;
-        //             x = rows[i].getElementsByTagName("td")[columnIndex];
-        //             y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+                                                                    //             if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                                                    //                 shouldSwitch = true;
+                                                                    //                 break;
+                                                                    //             }
+                                                                    //         }
 
-        //             if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-        //                 shouldSwitch = true;
-        //                 break;
-        //             }
-        //         }
+                                                                    //         if (shouldSwitch) {
+                                                                    //             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                                                    //             switching = true;
+                                                                    //         }
+                                                                    //     }
+                                                                    // }
 
-        //         if (shouldSwitch) {
-        //             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-        //             switching = true;
-        //         }
-        //     }
-        // }
+                                                                    // function searchTable() {
+                                                                    //     var input, filter, table, tr, td, i, txtValue;
+                                                                    //     input = document.getElementById("searchInput");
+                                                                    //     filter = input.value.toUpperCase();
+                                                                    //     table = document.getElementById("myTable");
+                                                                    //     tr = table.getElementsByTagName("tr");
 
-        // function searchTable() {
-        //     var input, filter, table, tr, td, i, txtValue;
-        //     input = document.getElementById("searchInput");
-        //     filter = input.value.toUpperCase();
-        //     table = document.getElementById("myTable");
-        //     tr = table.getElementsByTagName("tr");
+                                                                    //     for (i = 0; i < tr.length; i++) {
+                                                                    //         td = tr[i].getElementsByTagName("td")[0]; // Поиск по второй колонке
 
-        //     for (i = 0; i < tr.length; i++) {
-        //         td = tr[i].getElementsByTagName("td")[0]; // Поиск по второй колонке
+                                                                    //         if (td) {
+                                                                    //             txtValue = 'HP' || td.innerText;
 
-        //         if (td) {
-        //             txtValue = 'HP' || td.innerText;
+                                                                    //             if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                                                    //                 tr[i].style.display = "";
+                                                                    //             } else {
+                                                                    //                 tr[i].style.display = "none";
+                                                                    //             }
+                                                                    //         }
+                                                                    //     }
+                                                                    // }
+        </script>
+    </body>
 
-        //             if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        //                 tr[i].style.display = "";
-        //             } else {
-        //                 tr[i].style.display = "none";
-        //             }
-        //         }
-        //     }
-        // }
-    </script>
-</body>
-
-</html>
+    </html>
