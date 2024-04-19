@@ -185,7 +185,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     
                                     <!-- Подвал модальной формы -->
                                     <div class='modal-footer'>
-                                        <button type='button' class='btn btn-success' onclick='clearBrandSprav($brand)'>Очистить</button>
+                                        <button type='button' class='btn btn-success' onclick='clearBrandSprav(" . '"' . $brand . '"' . ")'>Очистить</button>
                                         <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
                                     </div>
                     
