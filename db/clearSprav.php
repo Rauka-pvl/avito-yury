@@ -44,4 +44,4 @@ try {
     array_push($arr, ['error' => "Error processing files: " . $e->getMessage()]);
 }
 
-echo ($arr);
+echo $arr;
