@@ -60,7 +60,7 @@ if ($count > 0)
     $pageCount = ceil($count / 100);
 else
     $pageCount = 1;
-
+echo $pageCount;
 $data = [];
 foreach ($result as $row) {
     array_push($data, $row);
