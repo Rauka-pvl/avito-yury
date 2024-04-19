@@ -14,7 +14,7 @@ $sort = $_GET['sort'] ?? 'ASC';
 $search = $_GET['search'] ?? '';
 $searchA = $_GET['searchA'] ?? '';
 if ($page != 1)
-    $page = 1 * 100;
+    $page = $_GET['page'] * 100;
 
 if ($search && $searchA) {
     $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') AND articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
@@ -39,14 +39,14 @@ if ($search && $searchA) {
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':searchA', $searchA, PDO::PARAM_STR);
 
-    $sql2 = "SELECT COUNT(*) FROM images WHERE articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
+    $sql2 = "SELECT COUNT(*) as count FROM images WHERE articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
     $count = $pdo->prepare($sql2);
     $count->bindParam(':searchA', $searchA, PDO::PARAM_STR);
 } else {
     $sql = "SELECT * FROM images ORDER BY brand $sort LIMIT 100 OFFSET $page";
     $stmt = $pdo->prepare($sql);
 
-    $sql2 = "SELECT COUNT(*) FROM images ORDER BY brand $sort LIMIT 100 OFFSET $page";
+    $sql2 = "SELECT COUNT(*) as count FROM images ORDER BY brand $sort LIMIT 100 OFFSET $page";
     $count = $pdo->prepare($sql2);
 }
 
@@ -56,8 +56,8 @@ $result = $stmt->fetchAll();
 $count->execute();
 $count = $count->fetch();
 
-if ($count > 0)
-    $pageCount = ceil($count / 100);
+if ($count['count'] > 0)
+    $pageCount = ceil($count['count'] / 100);
 else
     $pageCount = 1;
 $data = [];
@@ -133,7 +133,6 @@ foreach ($result as $row) {
         }
     </style>
     <div class="container">
-        <?= $pageCount ?>
         <div class="center">
             <div style="margin: 5px auto;">
                 <a class="btn btn-primary" href="home.php">Назад</a>
