@@ -22,8 +22,10 @@ if ($search && $searchA) {
     $stmt->bindParam(':search', $search, PDO::PARAM_STR);
     $stmt->bindParam(':searchA', $searchA, PDO::PARAM_STR);
 
-    $sql = "SELECT count() as count FROM images WHERE brand LIKE CONCAT('%', :search ,'%') AND articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
-
+    $sql2 = "SELECT count() as count FROM images WHERE brand LIKE CONCAT('%', :search ,'%') AND articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
+    $count = $pdo->prepare($sql2);
+    $count->bindParam(':search', $search, PDO::PARAM_STR);
+    $count->bindParam(':searchA', $searchA, PDO::PARAM_STR);
 } else if ($search) {
     $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
     $stmt = $pdo->prepare($sql);
