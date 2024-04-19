@@ -1,23 +1,15 @@
 <?php
 session_start();
 if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
-    echo ('auth:error');
+    echo json_encode('auth:error');
     exit;
 }
 require_once 'db.php';
 if ($_POST['brand']) {
     $brand = $_POST['brand'];
 } else {
-    echo ('Пустой бранд!');
-    http_response_code(500);
-    exit;
-}
-
-if ($_POST['sprav']) {
-    $sp = $_POST['sprav'];
-} else {
-    echo ('Пустой справочник!');
-    http_response_code(500);
+    echo json_encode('Пустой бранд!');
+    http_response_code(400);
     exit;
 }
 $arr = [];
@@ -44,4 +36,4 @@ try {
     array_push($arr, ['error' => "Error processing files: " . $e->getMessage()]);
 }
 
-echo $arr;
+echo json_encode($arr);
