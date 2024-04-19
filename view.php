@@ -22,24 +22,42 @@ if ($search && $searchA) {
     $stmt->bindParam(':search', $search, PDO::PARAM_STR);
     $stmt->bindParam(':searchA', $searchA, PDO::PARAM_STR);
 
+    $sql = "SELECT count() as count FROM images WHERE brand LIKE CONCAT('%', :search ,'%') AND articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
+
 } else if ($search) {
     $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':search', $search, PDO::PARAM_STR);
 
+    $sql2 = "SELECT count() as count FROM images WHERE brand LIKE CONCAT('%', :search ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
+    $count = $pdo->prepare($sql2);
+    $count->bindParam(':search', $search, PDO::PARAM_STR);
 } else if ($searchA) {
     $sql = "SELECT * FROM images WHERE articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':searchA', $searchA, PDO::PARAM_STR);
 
+    $sql2 = "SELECT count() FROM images WHERE articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
+    $count = $pdo->prepare($sql2);
+    $count->bindParam(':searchA', $searchA, PDO::PARAM_STR);
 } else {
     $sql = "SELECT * FROM images ORDER BY brand $sort LIMIT 100 OFFSET $page";
     $stmt = $pdo->prepare($sql);
+
+    $sql2 = "SELECT count() FROM images ORDER BY brand $sort LIMIT 100 OFFSET $page";
+    $count = $pdo->prepare($sql2);
 }
 
 $stmt->execute();
 $result = $stmt->fetchAll();
 
+$count->execute();
+$count = $count->fetch();
+
+if ($count > 0)
+    $pageCount = ceil($count / 100);
+else
+    $pageCount = 1;
 
 $data = [];
 foreach ($result as $row) {
@@ -252,10 +270,9 @@ foreach ($result as $row) {
                 </tbody>
             </table>
             <div class="pagination">
-                <? for ($i = 1; $i < 5; $i++) { ?>
-                    <a href="?page=<?= $i ?>&sort=<? echo $sort . "&search=" . $search . '&searchA=' . $searchA; ?>"
-                        class="pagination-link <? if ($page == $i)
-                            echo 'page-active'; ?>"><?= $i ?></a>
+                <? for ($i = 1; $i <= $pageCount; $i++) { ?>
+                    <a href="?page=<?= $i ?>&sort=<? echo $sort . "&search=" . $search . '&searchA=' . $searchA; ?>" class="pagination-link <? if ($page == $i)
+                                     echo 'page-active'; ?>"><?= $i ?></a>
                 <? } ?>
             </div>
         </div>
