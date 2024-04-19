@@ -132,6 +132,7 @@ foreach ($result as $row) {
             background-color: #007bff;
         }
     </style>
+    <?= $page ?>
     <div class="container">
         <div class="center">
             <div style="margin: 5px auto;">
@@ -271,7 +272,7 @@ foreach ($result as $row) {
                 </tbody>
             </table>
             <div class="pagination">
-                <? for ($i = 1; $i <= $pageCount; $i++) { ?>
+                <? for ($i = 1; $i < $pageCount; $i++) { ?>
                     <a href="?page=<?= $i ?>&sort=<? echo $sort . "&search=" . $search . '&searchA=' . $searchA; ?>" class="pagination-link <? if ($page == $i)
                                      echo 'page-active'; ?>"><?= $i ?></a>
                 <? } ?>
