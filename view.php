@@ -114,6 +114,7 @@ foreach ($result as $row) {
             background-color: #007bff;
         }
     </style>
+    <?= $count ?>
     <div class="container">
         <div class="center">
             <div style="margin: 5px auto;">
