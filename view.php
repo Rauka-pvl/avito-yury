@@ -23,17 +23,17 @@ if ($search && $searchA) {
     $stmt->bindParam(':searchA', $searchA, PDO::PARAM_STR);
 
 } else if ($search) {
-    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') ORDER BY brand $sort";
+    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':search', $search, PDO::PARAM_STR);
 
 } else if ($searchA) {
-    $sql = "SELECT * FROM images WHERE articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort";
+    $sql = "SELECT * FROM images WHERE articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':searchA', $searchA, PDO::PARAM_STR);
 
 } else {
-    $sql = "SELECT * FROM images ORDER BY brand $sort";
+    $sql = "SELECT * FROM images ORDER BY brand $sort LIMIT 100 OFFSET $page";
     $stmt = $pdo->prepare($sql);
 }
 
@@ -109,6 +109,7 @@ foreach ($result as $row) {
 
         .page-active {
             color: #fff;
+            border-radius: 5px;
             background-color: #007bff;
         }
     </style>
