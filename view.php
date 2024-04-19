@@ -252,7 +252,7 @@ foreach ($result as $row) {
             </table>
             <div class="pagination">
                 <? for ($i = 1; $i < 5; $i++) { ?>
-                    <a href="?page=<?= $i ?>&sort=<? echo $sort . "&search=" . $search . '&searchA=' . $searchA; ?>" class="pagination-link <? if ($page == 2)
+                    <a href="?page=<?= $i ?>&sort=<? echo $sort . "&search=" . $search . '&searchA=' . $searchA; ?>" class="pagination-link <? if ($page == $i)
                                      echo 'page-active'; ?>"><?= $i ?></a>
                 <? } ?>
             </div>
