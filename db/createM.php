@@ -25,6 +25,7 @@ try {
         // $articul = trim(strtolower(str_replace(['-', '_', ' '], '', $d)));
         $articul = preg_replace('/[-_\s]+/', '', $d);
         $articul = preg_replace('/\.(?=.*\.)/', '', $articul);
+        $articul = trim(strtolower($articul));
         $uploadDirectory = "../uploads/" . $brand . "/";
         if (!file_exists($uploadDirectory)) {
             mkdir($uploadDirectory, 0777, true);
