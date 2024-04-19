@@ -9,12 +9,13 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
 }
 
 require_once 'db/db.php';
+$offset = $_GET['page'] ?? 1;
 $page = $_GET['page'] ?? 1;
 $sort = $_GET['sort'] ?? 'ASC';
 $search = $_GET['search'] ?? '';
 $searchA = $_GET['searchA'] ?? '';
-if ($page != 1)
-    $page = $_GET['page'] * 100;
+if ($offset != 1)
+    $offset = $_GET['page'] * 100;
 
 if ($search && $searchA) {
     $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') AND articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
@@ -132,7 +133,6 @@ foreach ($result as $row) {
             background-color: #007bff;
         }
     </style>
-    <?= $page ?>
     <div class="container">
         <div class="center">
             <div style="margin: 5px auto;">
