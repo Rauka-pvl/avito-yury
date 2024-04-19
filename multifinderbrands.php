@@ -28,7 +28,7 @@ if ($sprav)
 else
     $brand = $json->brand;
 
-$sql = "SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT(:articul, '%')";
+$sql = "SELECT * FROM images WHERE brand = :brand AND articul LIKE LOWER(CONCAT(:articul, '%'))";
 
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
