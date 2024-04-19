@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
-if (!isset ($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
     header('Location: index.php');
     exit;
 }
@@ -13,9 +13,13 @@ require_once 'db/db.php';
 $sort = $_GET['sort'] ?? 'ASC';
 $search = $_GET['search'] ?? '';
 $searchA = $_GET['searchA'] ?? '';
+if ($_GET['page'])
+    $page = $_GET['page'] * 100;
+else
+    $page = 1;
 
 if ($search && $searchA) {
-    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') AND articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort";
+    $sql = "SELECT * FROM images WHERE brand LIKE CONCAT('%', :search ,'%') AND articul LIKE CONCAT('%', :searchA ,'%') ORDER BY brand $sort LIMIT 100 OFFSET $page";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':search', $search, PDO::PARAM_STR);
     $stmt->bindParam(':searchA', $searchA, PDO::PARAM_STR);
@@ -84,6 +88,25 @@ foreach ($result as $row) {
         img {
             max-width: 470px;
         }
+
+        .pagination {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination-link {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
+        .pagination-link:hover {
+            background-color: #0056b3;
+        }
     </style>
     <div class="container">
         <div class="center">
@@ -106,12 +129,12 @@ foreach ($result as $row) {
                     <div style=" margin: 0 0.5em;">
                         <label for="sort">Сортировка по Бренду</label>
                         <select name="sort" class="form-control" id="sort">
-                            <option value="ASC" <? if (isset ($_GET['sort'])) {
+                            <option value="ASC" <? if (isset($_GET['sort'])) {
                                 if ($_GET['sort'] == 'ASC')
                                     echo 'selected';
                             } ?>>По возрастанию
                             </option>
-                            <option value="DESC" <? if (isset ($_GET['sort'])) {
+                            <option value="DESC" <? if (isset($_GET['sort'])) {
                                 if ($_GET['sort'] == 'DESC')
                                     echo 'selected';
                             } ?>>По убыванию</option>
@@ -223,6 +246,13 @@ foreach ($result as $row) {
                     ?>
                 </tbody>
             </table>
+            <div class="pagination">
+                <a href="#" class="pagination-link">1</a>
+                <a href="#" class="pagination-link">2</a>
+                <a href="#" class="pagination-link">3</a>
+                <a href="#" class="pagination-link">4</a>
+                <a href="#" class="pagination-link">5</a>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

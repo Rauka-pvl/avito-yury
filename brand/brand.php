@@ -95,6 +95,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         echo "<tr><td>$brand</td><td>
                         <button class='btn btn-primary' data-toggle='modal' data-target='#myModal$key'>Просмотр</button>
                         <button class='btn btn-warning' data-toggle='modal' data-target='#myModal2-$key'>Редактировать</button>
+                        <button class='btn btn-danger' data-toggle='modal' data-target='#myModal3-$key'>Очистить</button>
                         </td></tr>";
                         $stmt1 = $pdo->prepare("SELECT sprav FROM brand_sprav WHERE brand = :brand");
                         $stmt1->bindParam(':brand', $brand, PDO::PARAM_STR);
@@ -167,6 +168,30 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                                 </div>
                             </div>
                         </div>";
+                        echo "
+                        <div class='modal' id='myModal3-$key'>
+                            <div class='modal-dialog'>
+                                <div class='modal-content'>
+                    
+                                    <!-- Заголовок модальной формы -->
+                                    <div class='modal-header' brand='$brand'>
+                                        <h4 class='modal-title'>Очистить: $brand</h4>
+                                    </div>
+                    
+                                    <!-- Тело модальной формы -->
+                                    <div class='modal-body'>
+                                        $edit
+                                    </div>
+                    
+                                    <!-- Подвал модальной формы -->
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-success' onclick='clearBrandSprav($brand)'>Очистить</button>
+                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Закрыть</button>
+                                    </div>
+                    
+                                </div>
+                            </div>
+                        </div>";
                     }
                     ?>
                 </tbody>
@@ -221,6 +246,26 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 });
             } else alert('Не оставлять пустых полей!');
         } else alert('Нужен хоть бы 1 справочник!');
+    }
+    function clearBrandSprav($brand) {
+        $.ajax({
+            type: 'POST',
+            url: '../db/clearSprav.php',
+            data: { brand: brand },
+            success: function (response) {
+                if (response = []) {
+                    location.reload();
+                } else {
+                    console.log(response);
+                    reject('Ошибка при отправке данных на сервер. ' + response);
+                }
+            },
+            error: function (error) {
+                console.error('Произошла ошибка при отправке данных на сервер:', error);
+                alert('Произошла ошибка при отправке данных на сервер.', error);
+                reject('Ошибка при отправке данных на сервер.');
+            }
+        });
     }
 </script>
 

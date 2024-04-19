@@ -41,7 +41,7 @@ $result = $stmt->fetchAll();
 $data = [];
 
 // Проверяем, есть ли результаты
-if (!empty ($result)) {
+if (!empty($result)) {
     foreach ($result as $row) {
         $url = "https://233204.fornex.cloud/uploads/" . strtolower($row['brand']) . "/" . strtolower($row['articul']);
 
@@ -56,7 +56,7 @@ if (!empty ($result)) {
         // }
     }
 
-    if (!empty ($data)) {
+    if (!empty($data)) {
         header("Content-Type: application/json");
         echo json_encode($data);
     } else {
