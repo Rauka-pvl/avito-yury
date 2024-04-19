@@ -125,6 +125,7 @@ foreach ($result as $row) {
 
         .pagination-link:hover {
             background-color: #0056b3;
+            color: #fff;
         }
 
         .page-active {
