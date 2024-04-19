@@ -247,7 +247,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_COLUMN);
             } else alert('Не оставлять пустых полей!');
         } else alert('Нужен хоть бы 1 справочник!');
     }
-    function clearBrandSprav($brand) {
+    function clearBrandSprav(brand) {
         $.ajax({
             type: 'POST',
             url: '../db/clearSprav.php',
