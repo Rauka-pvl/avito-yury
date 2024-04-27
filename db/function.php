@@ -23,13 +23,13 @@ foreach ($_FILES['images']['name'] as $key => $image) {
     $path = pathinfo($_FILES['images']['name'][$key])['extension'];
     $articul = preg_replace('/[-_\s]+/', '', $_POST['articul']);
     $art = preg_replace('/\.(?=.*\.)/', '', $articul);
-    $art = trim(strtolower($art));
+    $artt = trim(strtolower($art));
     // $art = trim(strtolower(preg_replace('/(?<=\S)[-_]+(?!.*_\d+\.[^.]+$)|\s+/', '', $_POST['articul'])));
     if ($key != 0) {
         $i++;
-        $name = $art . "_" . $i . "." . $path;
+        $name = $artt . "_" . $i . "." . $path;
     } else {
-        $name = $art . "." . $path;
+        $name = $artt . "." . $path;
     }
     $uploadPath = $uploadDirectory . $name;
 

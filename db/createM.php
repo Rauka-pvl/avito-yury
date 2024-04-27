@@ -25,13 +25,13 @@ try {
         // $articul = trim(strtolower(str_replace(['-', '_', ' '], '', $d)));
         $articul = preg_replace('/[-_\s]+/', '', $d);
         $articul = preg_replace('/\.(?=.*\.)/', '', $articul);
-        $articul = trim(strtolower($articul));
+        $art = trim(strtolower($articul));
         $uploadDirectory = "../uploads/" . $brand . "/";
         if (!file_exists($uploadDirectory)) {
             mkdir($uploadDirectory, 0777, true);
         }
 
-        $uploadPath = $uploadDirectory . $articul;
+        $uploadPath = $uploadDirectory . $art;
 
         // Декодируем данные в двоичный формат
         $base64 = explode(',', $photoSrc[$key]);
@@ -47,17 +47,17 @@ try {
 
             // Привязка параметров и выполнение запроса
             $stmt->bindParam(':brand', $brand, PDO::PARAM_STR);
-            $stmt->bindParam(':articul', $articul, PDO::PARAM_STR);
+            $stmt->bindParam(':articul', $art, PDO::PARAM_STR);
 
             // Выполнение запроса
             if ($stmt->execute()) {
                 http_response_code(200);
             } else {
                 // array_push($arr, ['error' => "Error adding data to the table: $brand/$articul"]);
-                $arr[$key] = ['error' => "Error adding data to the table: $brand/$articul"];
+                $arr[$key] = ['error' => "Error adding data to the table: $brand/$art"];
             }
         } else {
-            $arr[$key] = ['error' => "Failed to save file: $brand/$articul"];
+            $arr[$key] = ['error' => "Failed to save file: $brand/$art"];
             // array_push($arr, ['error' => "Failed to save file: $brand/$articul"]);
         }
     }

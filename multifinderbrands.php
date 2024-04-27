@@ -18,7 +18,7 @@ $json = json_decode($json);
 
 $json = $json[0] ?? $json;
 
-$stmt1 = $pdo->prepare("SELECT brand FROM brand_sprav WHERE LOWER(brand) = LOWER(:brand) OR LOWER(sprav) LIKE LOWER(CONCAT('% | ',:sprav,' | %')) OR LOWER(sprav) = LOWER(:sprav)");
+$stmt1 = $pdo->prepare("SELECT brand FROM brand_sprav WHERE LOWER(brand) = LOWER(:brand) OR LOWER(sprav) LIKE LOWER(CONCAT('% | ',:sprav,' | %')) OR LOWER(sprav) LIKE LOWER(CONCAT('%',:sprav,'%')) OR LOWER(sprav) = LOWER(:sprav)");
 $stmt1->bindParam(':brand', $json->brand, PDO::PARAM_STR);
 $stmt1->bindParam(':sprav', $json->brand, PDO::PARAM_STR);
 $stmt1->execute();
