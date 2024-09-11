@@ -26,6 +26,32 @@ foreach ($xml->Ad as $ad) {
     $stmt->execute();
     $row = $stmt->fetchAll();
 
+
+    // Price
+    $url = "https://www.buszap.ru/search/" . $adId[0] . "/" . $adId[1];
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $html = curl_exec($ch);
+
+
+    if (curl_errno($ch)) {
+        echo 'Error:' . curl_error($ch);
+    } else {
+        $dom = new DOMDocument;
+        @$dom->loadHTML($html);
+        $xpath = new DOMXPath($dom);
+        $prices = $xpath->query('//tr[@data-output-price]');
+        if ($prices->length > 0) {
+            $newPrice = $prices[0]->getAttribute('data-output-price'); // Новая цена
+        }
+    }
+    curl_close($ch);
+    if ($ad->Price && isset($newPrice)) {
+        $ad->Price = $newPrice; // Устанавливаем новую цену
+    }
+
     if ($row) {
         unset($ad->Images->Image);
         foreach ($row as $r) {
