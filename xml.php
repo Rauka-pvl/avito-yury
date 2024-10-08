@@ -49,7 +49,8 @@ foreach ($xml->Ad as $ad) {
     }
     curl_close($ch);
     if ($ad->Price && isset($newPrice)) {
-        $ad->Price = $newPrice; // Устанавливаем новую цену
+        unset($ad->Price);
+        $newP = $ad->addChild('Price', $newPrice);
     }
 
     if ($row) {
