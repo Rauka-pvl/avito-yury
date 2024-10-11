@@ -64,6 +64,6 @@ foreach ($xml->Ad as $ad) {
     }
 }
 file_put_contents('modified_articles.xml', $xml->asXML());
-echo json_encode('true 1');
+echo json_encode(true);
 
 ?>
