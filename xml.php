@@ -9,8 +9,6 @@ require_once 'db/db.php';
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://prdownload.nodacdn.net/dfiles/7da749ad-284074-7b2184d7/articles.xml');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-// Включаем поддержку SSL (если требуется)
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 $result = curl_exec($ch);
 if (curl_errno($ch)) {
@@ -19,25 +17,33 @@ if (curl_errno($ch)) {
 curl_close($ch);
 
 $xml = simplexml_load_string($result);
-foreach ($xml->Ad as $ad) {
+$ads = $xml->Ad;
+$totalAds = count($ads);
+$batchSize = 10; // количество записей для обработки за один запуск
+$batchIndex = isset($_GET['batch']) ? (int) $_GET['batch'] : 0;
+
+$start = $batchIndex * $batchSize;
+$end = min($start + $batchSize, $totalAds);
+
+for ($i = $start; $i < $end; $i++) {
+    $ad = $ads[$i];
     $adId = (string) $ad->Id;
     $adId = explode('_', $adId);
 
+    // Выполнение SQL запроса
     $stmt = $pdo->prepare("SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT('%', :articul, '%')");
     $stmt->bindParam(':brand', $adId[0], PDO::PARAM_STR);
     $stmt->bindParam(':articul', $adId[1], PDO::PARAM_STR);
     $stmt->execute();
     $row = $stmt->fetchAll();
 
-
-    // Price
+    // Получение цены
     $url = "https://www.buszap.ru/search/" . $adId[0] . "/" . $adId[1];
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $html = curl_exec($ch);
-
 
     if (curl_errno($ch)) {
         echo 'Error:' . curl_error($ch);
@@ -51,22 +57,34 @@ foreach ($xml->Ad as $ad) {
         }
     }
     curl_close($ch);
+
     if ($ad->Price && isset($newPrice)) {
         unset($ad->Price);
         $newP = $ad->addChild('Price', $newPrice);
     }
 
+    // Добавление изображений
     if ($row) {
         unset($ad->Images->Image);
         foreach ($row as $r) {
             $path = "https://233204.fornex.cloud/uploads/" . strtolower($r['brand']) . "/" . strtolower($r['articul']);
             $newImage = $ad->Images->addChild('Image', ' ');
             $newImage->addAttribute('url', $path);
-            // $newImage = $ad->Images->addChild('/Image');
         }
     }
 }
+
+// Сохранение результатов
 file_put_contents('modified_articles.xml', $xml->asXML());
-echo json_encode(true);
+
+// Проверка на следующую партию
+if ($end < $totalAds) {
+    // Перенаправляем на следующую партию
+    header("Location: /xml.php?batch=" . ($batchIndex + 1));
+    exit;
+} else {
+    echo json_encode(true); // Готово
+}
+
 
 ?>
