@@ -11,6 +11,8 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://prdownload.nodacdn.net/dfiles/7da749ad-284074-7b2184d7/articles.xml');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_TIMEOUT, 120); // Установите нужное значение
+
 $result = curl_exec($ch);
 if (curl_errno($ch)) {
     echo 'Ошибка cURL: ' . curl_error($ch);
