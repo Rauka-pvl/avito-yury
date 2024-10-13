@@ -14,7 +14,7 @@ if (curl_errno($ch)) {
 curl_close($ch);
 $xml = simplexml_load_string($result);
 foreach ($xml->Ad as $key => $ad) {
-    if ($ket <= 10) {
+    if ($ket <= 5) {
         $adId = (string) $ad->Id;
         $adId = explode('_', $adId);
         $stmt = $pdo->prepare("SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT('%', :articul, '%')");
