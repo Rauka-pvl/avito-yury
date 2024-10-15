@@ -50,6 +50,7 @@ foreach ($xml->Ad as $ad) {
             if ($ad->Price && $h['price']) {
                 unset($ad->Price);
                 $ad->addChild('Price', $h['price']);
+                continue;
             }
         }
     }
