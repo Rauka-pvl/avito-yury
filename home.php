@@ -36,19 +36,21 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
             <a href="create/createM.php" class="btn btn-primary">Добавление много</a>
             <a href="brand/brand.php" class="btn btn-primary">Справочник Бранда</a>
             <a href="view.php" class="btn btn-primary">Просмотр</a>
-            <button onclick="uppdateXML()" class="btn btn-primary">Обновление XML</button>
+            <button id="xmlBtn" onclick="uppdateXML()" class="btn btn-primary">Обновление XML</button>
             <a href="logout.php" class="btn btn-danger">Выйти</a>
         </div>
     </div>
 </body>
 <script>
     function uppdateXML() {
+        $('#xmlBtn').css('background-color', 'red');
         $.ajax({
             type: 'GET',
             url: 'xml.php',
             success: function (response) {
                 console.log('Успешный ответ: ', response);
                 if (response) {
+                    $('#xmlBtn').css('background-color', '#0d6efd');
                     alert('Обновлён!');
                 }
             },
