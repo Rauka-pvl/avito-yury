@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$db = 'avito';
-$user = 'uploader';
-$pass = 'uploader';
+$db = 'avita_yura';
+$user = 'root';
+$pass = 'root';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

@@ -13,46 +13,44 @@ if (curl_errno($ch)) {
 }
 curl_close($ch);
 $xml = simplexml_load_string($result);
-foreach ($xml->Ad as $key => $ad) {
-    if ($ket <= 5) {
-        $adId = (string) $ad->Id;
-        $adId = explode('_', $adId);
-        $stmt = $pdo->prepare("SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT('%', :articul, '%')");
-        $stmt->bindParam(':brand', $adId[0], PDO::PARAM_STR);
-        $stmt->bindParam(':articul', $adId[1], PDO::PARAM_STR);
-        $stmt->execute();
-        $row = $stmt->fetchAll();
-        // Price
-        $url = "https://www.buszap.ru/search/" . $adId[0] . "/" . $adId[1];
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        $html = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
-        } else {
-            $dom = new DOMDocument;
-            @$dom->loadHTML($html);
-            $xpath = new DOMXPath($dom);
-            $prices = $xpath->query('//tr[@data-output-price]');
-            if ($prices->length > 0) {
-                $newPrice = $prices[0]->getAttribute('data-output-price'); // Новая цена
-            }
+foreach ($xml->Ad as $ad) {
+    $adId = (string) $ad->Id;
+    $adId = explode('_', $adId);
+    $stmt = $pdo->prepare("SELECT * FROM images WHERE brand = :brand AND articul LIKE CONCAT('%', :articul, '%')");
+    $stmt->bindParam(':brand', $adId[0], PDO::PARAM_STR);
+    $stmt->bindParam(':articul', $adId[1], PDO::PARAM_STR);
+    $stmt->execute();
+    $row = $stmt->fetchAll();
+    // Price
+    $url = "https://www.buszap.ru/search/" . $adId[0] . "/" . $adId[1];
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $html = curl_exec($ch);
+    if (curl_errno($ch)) {
+        echo 'Error:' . curl_error($ch);
+    } else {
+        $dom = new DOMDocument;
+        @$dom->loadHTML($html);
+        $xpath = new DOMXPath($dom);
+        $prices = $xpath->query('//tr[@data-output-price]');
+        if ($prices->length > 0) {
+            $newPrice = $prices[0]->getAttribute('data-output-price'); // Новая цена
         }
-        curl_close($ch);
-        if ($ad->Price && isset($newPrice)) {
-            unset($ad->Price);
-            $newP = $ad->addChild('Price', $newPrice);
-        }
-        if ($row) {
-            unset($ad->Images->Image);
-            foreach ($row as $r) {
-                $path = "https://233204.fornex.cloud/uploads/" . strtolower($r['brand']) . "/" . strtolower($r['articul']);
-                $newImage = $ad->Images->addChild('Image', ' ');
-                $newImage->addAttribute('url', $path);
-                // $newImage = $ad->Images->addChild('/Image');
-            }
+    }
+    curl_close($ch);
+    if ($ad->Price && isset($newPrice)) {
+        unset($ad->Price);
+        $newP = $ad->addChild('Price', $newPrice);
+    }
+    if ($row) {
+        unset($ad->Images->Image);
+        foreach ($row as $r) {
+            $path = "https://233204.fornex.cloud/uploads/" . strtolower($r['brand']) . "/" . strtolower($r['articul']);
+            $newImage = $ad->Images->addChild('Image', ' ');
+            $newImage->addAttribute('url', $path);
+            // $newImage = $ad->Images->addChild('/Image');
         }
     }
 }
