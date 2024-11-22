@@ -1,7 +1,6 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-set_time_limit(0);
 require_once 'db/db.php';
 
 // Первая ссылка
@@ -12,9 +11,15 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 $result = curl_exec($ch);
 if (curl_errno($ch)) {
     echo 'Ошибка cURL: ' . curl_error($ch);
+    exit;
 }
 curl_close($ch);
+
 $xml = simplexml_load_string($result);
+if ($xml === false) {
+    echo "Ошибка при загрузке XML из первой ссылки.";
+    exit;
+}
 
 // Обработка первого XML
 foreach ($xml->Ad as $ad) {
@@ -67,9 +72,15 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 $result2 = curl_exec($ch);
 if (curl_errno($ch)) {
     echo 'Ошибка cURL: ' . curl_error($ch);
+    exit;
 }
 curl_close($ch);
+
 $xml2 = simplexml_load_string($result2);
+if ($xml2 === false) {
+    echo "Ошибка при загрузке XML из второй ссылки.";
+    exit;
+}
 
 // Обработка второго XML
 foreach ($xml2->Ad as $ad) {
