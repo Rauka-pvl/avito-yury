@@ -70,12 +70,27 @@ curl_setopt($ch, CURLOPT_URL, 'https://www.buszap.ru/get_price?p=28eb21146a7944a
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 $result2 = curl_exec($ch);
+
+// Проверка ошибки cURL
 if (curl_errno($ch)) {
     echo 'Ошибка cURL: ' . curl_error($ch);
     exit;
 }
+
+// Проверка статуса ответа
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+if ($httpCode != 200) {
+    echo "Ошибка HTTP: $httpCode";
+    exit;
+}
+
 curl_close($ch);
 
+// Выводим результат для отладки
+echo "Ответ от второй ссылки:\n";
+var_dump($result2);
+
+// Пробуем загрузить второй XML
 $xml2 = simplexml_load_string($result2);
 if ($xml2 === false) {
     echo "Ошибка при загрузке XML из второй ссылки.";
